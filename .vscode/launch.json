@@ -4,21 +4,41 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
-
+        {
+            "name": "Flutter",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart",
+             "args": [
+                "--no-sound-null-safety"
+            ]
+        },
         {
             "name": "mvvm_first_c",
+            "program": "lib/main.dart",
             "request": "launch",
             "type": "dart",
             "args": [
-                "--no-sound-null-safety"
-               ]
-        },
-        {
-            "name": "mvvm_first_c (profile mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        }
+                    "--no-sound-null-safety"
+                ]
+    },
+    {
+        "name": "mvvm_first_c (profile mode)",
+        "request": "launch",
+        "type": "dart", 
+        "args": [
+            "--no-sound-null-safety"
+        ],
+        "flutterMode": "profile"
+    },
+    {
+        "name": "mvvm_first_c (debug mode)",
+        "request": "launch",
+        "type": "f", 
+        "args": [
+            "--no-sound-null-safety"
+        ],
+        "flutterMode": "debug"
+    }
     ]
 }

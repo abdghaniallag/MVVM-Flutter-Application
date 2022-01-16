@@ -12,6 +12,6 @@ class RemotDataSourceImpilenter implements RemotDataSource {
   @override
   Future<AuthenticationRespons> login(LoginRequest loginRequest) async {
     return await _appServiceClient.login(loginRequest.email,
-        loginRequest.password, loginRequest.imei, loginRequest.deviceType);
+        loginRequest.password, "","");
   }
 }

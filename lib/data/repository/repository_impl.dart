@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
 import 'package:mvvm_first_c/data/data_source/remot_data_source.dart';
 import 'package:mvvm_first_c/data/mapper/mapper.dart';
 import 'package:mvvm_first_c/data/network/error_handler.dart';
@@ -7,6 +10,9 @@ import 'package:mvvm_first_c/data/request/request.dart';
 import 'package:mvvm_first_c/data/network/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:mvvm_first_c/domain/repository.dart';
+import 'package:mvvm_first_c/presentation/state_renderer/state_renderer.dart';
+import 'package:mvvm_first_c/presentation/state_renderer/state_renderer_implimenter.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class RepositoryImpl extends Repository {
   RemotDataSource _remotDataSource;
@@ -21,13 +27,17 @@ class RepositoryImpl extends Repository {
          final response = await _remotDataSource.login(loginRequest);
       if (response.status == ApiInternalStatus.SUCCESS) {
         // return data
-        return Right(response.toDomain());
+       
+          log( "return data ");
+           return Right(response.toDomain());
       } else {
         //return left logic biz error
-        return Left(Failure(
+     
+          log( "return left logic biz error");
+     return Left(Failure(
             response.status?? ApiInternalStatus.FAILURE,response.message??ResponseMessage.DEFAULT ));
       }
-      } catch (error) {
+      } catch (error) {  
        return Left(ErrorHandler.handel(error).failure);
 
       }

@@ -44,7 +44,7 @@ class ErrorHandler implements Exception {
           case ResponseCode.FORBIDDEN:
             return DataSource.FORBIDDEN.getFailure();
           case ResponseCode.NOT_FOUND:
-          print('not found');
+         
             return DataSource.NOT_FOUND.getFailure();
           case ResponseCode.UNAUTHORISED:
             return DataSource.UNAUTHORISED.getFailure();

@@ -94,6 +94,7 @@ extension FlowStateExtension on FlowState {
         }
       case EmptyState:
         {
+          dismissDialog(context);
           return StateRenderer(
               stateRendererType: getStateRendererType(),
               message: getMessage(),
@@ -110,7 +111,6 @@ extension FlowStateExtension on FlowState {
     if (_isThereCurrentDialogShowig(context)) {
       Navigator.of(context, rootNavigator: true).pop(true);
     }
-    ;
   }
 
   _isThereCurrentDialogShowig(BuildContext context) =>
