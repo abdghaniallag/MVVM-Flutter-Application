@@ -7,4 +7,6 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   initAppModule();
   runApp(  MyApp());
+   
+
 } 
