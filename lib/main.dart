@@ -6,7 +6,6 @@ import 'app/app.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   initAppModule();
-  runApp(  MyApp());
-   //dev-br
+  runApp(  MyApp()); 
 
 } 
