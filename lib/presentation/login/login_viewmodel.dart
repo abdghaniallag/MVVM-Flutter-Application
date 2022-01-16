@@ -20,6 +20,7 @@ StreamController _isUserLoggedSeccesfuly =
       StreamController<void>();
 
   var loginObject = LoginObject("", "");
+  var loginObject2 = LoginObject("", "");
   LoginUseCase _loginUseCase; //todo remove ?
   LoginViewModel(this._loginUseCase);
   //inputs
