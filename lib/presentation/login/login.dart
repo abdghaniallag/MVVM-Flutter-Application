@@ -1,4 +1,8 @@
+// ignore_for_file: prefer_final_fields
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mvvm_first_c/app/di.dart';
 import 'package:mvvm_first_c/presentation/login/login_viewmodel.dart';
@@ -27,6 +31,13 @@ class _LoginViewState extends State<LoginView> {
         .addListener(() => _viewModel.setUserName(_userNameController.text));
     _passwordController
         .addListener(() => _viewModel.setPassword(_passwordController.text));
+    _viewModel.isUserLoggedInSuccessfullyController.stream
+        .listen((isSuccessFullyLoge) {
+//      navigate to main screen
+      SchedulerBinding.instance?.addPostFrameCallback((timeStamp) {
+        Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
+      });
+    });
   }
 
   @override
