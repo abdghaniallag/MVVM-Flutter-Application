@@ -1,7 +1,7 @@
 
 import 'package:get_it/get_it.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
-import 'package:mvvm_first_c/app/app_prefs.dart';
+import 'package:mvvm_first_c/app/app_preferences.dart';
 import 'package:mvvm_first_c/data/data_source/remot_data_source.dart';
 import 'package:mvvm_first_c/data/network/app_api.dart';
 import 'package:mvvm_first_c/data/network/dio_factory.dart';

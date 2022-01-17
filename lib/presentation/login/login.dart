@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mvvm_first_c/app/app_preferences.dart';
 import 'package:mvvm_first_c/app/di.dart';
 import 'package:mvvm_first_c/presentation/login/login_viewmodel.dart';
 import 'package:mvvm_first_c/presentation/resources/assets_manager.dart';
@@ -22,6 +23,7 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   LoginViewModel _viewModel = instance<LoginViewModel>();
+  AppPreferences _appPreferences=instance<AppPreferences>();
   TextEditingController _userNameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -35,6 +37,7 @@ class _LoginViewState extends State<LoginView> {
         .listen((isSuccessFullyLoge) {
 //      navigate to main screen
       SchedulerBinding.instance?.addPostFrameCallback((timeStamp) {
+        _appPreferences.setUserLoggedIn();
         Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
       });
     });
