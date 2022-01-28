@@ -20,7 +20,7 @@ class AppStrings {
   static  const String login='Login';  
   static  const String resetPassword='Reset Password'; 
   static  const String register='Register'; 
-  static  const String forgetPassword='Forget password'; 
+  static  const String ForgotPassword='Forgot password'; 
   static  const String loading='Loading...';  
   static  const String retryAgain='Retry again'; 
   static  const String ok='OK'; 

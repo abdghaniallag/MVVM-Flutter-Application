@@ -3,22 +3,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mvvm_first_c/presentation/resources/assets_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/color_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/routes_manager.dart';
+import 'package:mvvm_first_c/presentation/resources/color_manager.dart'; 
 import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
 import 'package:mvvm_first_c/presentation/resources/values_manager.dart';
 
-import 'forget_password_view_model.dart';
+import 'Forgot_password_view_model.dart';
 
-class ForgetPasswordView extends StatefulWidget {
-  const ForgetPasswordView({Key? key}) : super(key: key);
+class ForgotPasswordView extends StatefulWidget {
+  const ForgotPasswordView({Key? key}) : super(key: key);
 
   @override
-  _ForgetPasswordViewState createState() => _ForgetPasswordViewState();
+  _ForgotPasswordViewState createState() => _ForgotPasswordViewState();
 }
 
-class _ForgetPasswordViewState extends State<ForgetPasswordView> {
-  ForgetPasswordViewModel _viewModel = ForgetPasswordViewModel();
+class _ForgotPasswordViewState extends State<ForgotPasswordView> {
+  ForgotPasswordViewModel _viewModel = ForgotPasswordViewModel();
   TextEditingController _emailController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();

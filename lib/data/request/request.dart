@@ -5,7 +5,7 @@ class LoginRequest {
   String deviceType;
   LoginRequest(this.email, this.password, this.imei, this.deviceType);
 }
-class  ForgetPasswordRequest {
+class  ForgotPasswordRequest {
    String email;
-   ForgetPasswordRequest(this.email);
+   ForgotPasswordRequest(this.email);
 }

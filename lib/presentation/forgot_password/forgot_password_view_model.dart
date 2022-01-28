@@ -2,8 +2,8 @@ import 'dart:async';
  
 import 'package:mvvm_first_c/presentation/base/base.dart';
 
-class ForgetPasswordViewModel extends BaseViewModel
-    with ForgetPasswordViewModelInputs, ForgetPasswordViewModelOutputs {
+class ForgotPasswordViewModel extends BaseViewModel
+    with ForgotPasswordViewModelInputs, ForgotPasswordViewModelOutputs {
   StreamController _emailStreamController =
       StreamController<String>.broadcast();
   @override
@@ -38,13 +38,13 @@ class ForgetPasswordViewModel extends BaseViewModel
   }
 }
 
-abstract class ForgetPasswordViewModelInputs {
+abstract class ForgotPasswordViewModelInputs {
   setEmaill(String email);
   resetPassword();
 
   Sink get InputEmail;
 }
 
-abstract class ForgetPasswordViewModelOutputs {
+abstract class ForgotPasswordViewModelOutputs {
   Stream<bool> get outputIsEmailValid;
 }
