@@ -6,6 +6,7 @@ import 'package:mvvm_first_c/presentation/resources/assets_manager.dart';
 import 'package:mvvm_first_c/presentation/resources/color_manager.dart'; 
 import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
 import 'package:mvvm_first_c/presentation/resources/values_manager.dart';
+import 'package:mvvm_first_c/presentation/state_renderer/state_renderer_implimenter.dart';
 
 import 'Forgot_password_view_model.dart';
 
@@ -17,7 +18,7 @@ class ForgotPasswordView extends StatefulWidget {
 }
 
 class _ForgotPasswordViewState extends State<ForgotPasswordView> {
-  ForgotPasswordViewModel _viewModel = ForgotPasswordViewModel();
+  ForgotPasswordViewModel _viewModel = ForgotPasswordViewModel(null);
   TextEditingController _emailController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
@@ -25,7 +26,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   void _bind() {
     _viewModel.start();
     _emailController
-        .addListener(() => _viewModel.setEmaill(_emailController.text));
+        .addListener(() => _viewModel.setEmail(_emailController.text));
   }
 
   @override
@@ -36,7 +37,18 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
 
   @override
   Widget build(BuildContext context) {
-    return _getContentWidget(context);
+    return  Scaffold(
+      backgroundColor: ColorManager.white,
+      body: StreamBuilder<FlowState>(
+          stream: _viewModel.outputState,
+          builder: (context, snapshut) {
+            return snapshut.data?.getScreenWidget(context, _getContentWidget(context),
+                    () {
+                  _viewModel.forgotPassword();
+                }) ??
+                _getContentWidget(context);
+          }),
+    );
   }
 
   Widget _getContentWidget(BuildContext context) {
