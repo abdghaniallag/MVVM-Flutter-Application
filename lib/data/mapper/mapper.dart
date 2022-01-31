@@ -28,9 +28,10 @@ extension AuthenticationResponsMapper on AuthenticationRespons? {
         this?.customer?.toDomain(), this?.contacts?.toDomain());
   }
 }
-extension ForgotPasswordResponsMapper on ForgotPasswordRespons? {
+extension ForgotPasswordResponseMapper on ForgotPasswordResponse? {
   String toDomain() {
     return  
         this?.support?.orEmpty()?? EMPTY;
   }
 }
+

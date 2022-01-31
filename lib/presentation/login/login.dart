@@ -23,7 +23,7 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   LoginViewModel _viewModel = instance<LoginViewModel>();
-  AppPreferences _appPreferences=instance<AppPreferences>();
+  AppPreferences _appPreferences = instance<AppPreferences>();
   TextEditingController _userNameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -148,7 +148,7 @@ class _LoginViewState extends State<LoginView> {
                       children: [
                         TextButton(
                             onPressed: () {
-                              Navigator.pushReplacementNamed(
+                              Navigator.pushNamed(
                                   context, Routes.ForgotPasswordRoute);
                             },
                             child: Text(
@@ -157,7 +157,7 @@ class _LoginViewState extends State<LoginView> {
                             )),
                         TextButton(
                             onPressed: () {
-                              Navigator.pushReplacementNamed(
+                              Navigator.pushNamed(
                                   context, Routes.registerRoute);
                             },
                             child: Text(

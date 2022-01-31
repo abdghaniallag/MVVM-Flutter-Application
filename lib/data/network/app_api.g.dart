@@ -38,18 +38,18 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<ForgotPasswordRespons> forgotPassword(email) async {
+  Future<ForgotPasswordResponse> forgotPassword(email) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = {'email': email};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ForgotPasswordRespons>(
+        _setStreamType<ForgotPasswordResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/costumers/forgotpassword',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ForgotPasswordRespons.fromJson(_result.data!);
+    final value = ForgotPasswordResponse.fromJson(_result.data!);
     return value;
   }
 

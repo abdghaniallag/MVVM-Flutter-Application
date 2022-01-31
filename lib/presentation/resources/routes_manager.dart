@@ -24,10 +24,11 @@ class RouteGenerator {
       case Routes.splashRoute:
         return MaterialPageRoute(builder: (_) => SplashView());
       case Routes.ForgotPasswordRoute:
+        initForgotPasswordModule();
         return MaterialPageRoute(builder: (_) => ForgotPasswordView());
       case Routes.loginRoute:
         initLoginModule();
-        return MaterialPageRoute(builder: (_) => LoginView()); 
+        return MaterialPageRoute(builder: (_) => LoginView());
       case Routes.onBoardingRoute:
         return MaterialPageRoute(builder: (_) => OnBoardingView());
       case Routes.registerRoute:

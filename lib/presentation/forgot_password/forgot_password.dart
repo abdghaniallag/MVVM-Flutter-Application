@@ -1,135 +1,92 @@
-// ignore_for_file: file_names
+import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:mvvm_first_c/presentation/resources/assets_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/color_manager.dart'; 
-import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/values_manager.dart';
+import 'package:mvvm_first_c/app/functions.dart';
+import 'package:mvvm_first_c/domain/usecase/forgot_password_usecase.dart';
+import 'package:mvvm_first_c/presentation/base/base.dart';
+import 'package:mvvm_first_c/presentation/state_renderer/state_renderer.dart';
 import 'package:mvvm_first_c/presentation/state_renderer/state_renderer_implimenter.dart';
 
-import 'Forgot_password_view_model.dart';
+class ForgotPasswordViewModel extends BaseViewModel
+    with ForgotPasswordViewModelInput, ForgotPasswordViewModelOutput {
+  final StreamController _emailStreamController =
+      StreamController<String>.broadcast();
+  final StreamController _isAllInputValidStreamController =
+      StreamController<void>.broadcast();
 
-class ForgotPasswordView extends StatefulWidget {
-  const ForgotPasswordView({Key? key}) : super(key: key);
+  final ForgotPasswordUseCase _forgotPasswordUseCase;
 
+  ForgotPasswordViewModel(this._forgotPasswordUseCase);
+
+  var email = "";
+
+  // input
   @override
-  _ForgotPasswordViewState createState() => _ForgotPasswordViewState();
-}
-
-class _ForgotPasswordViewState extends State<ForgotPasswordView> {
-  ForgotPasswordViewModel _viewModel = ForgotPasswordViewModel(null);
-  TextEditingController _emailController = TextEditingController();
-
-  final _formKey = GlobalKey<FormState>();
-
-  void _bind() {
-    _viewModel.start();
-    _emailController
-        .addListener(() => _viewModel.setEmail(_emailController.text));
+  void start() {
+    inputState.add(ContentState());
   }
 
   @override
-  void initState() {
-    _bind();
-    super.initState();
+  forgotPassword() async {
+    inputState.add(
+        LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
+    (await _forgotPasswordUseCase.execute(email)).fold((failure) {
+      inputState.add(
+          ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
+    }, (authObject) {
+      inputState.add(ContentState());
+    });
   }
 
   @override
-  Widget build(BuildContext context) {
-    return  Scaffold(
-      backgroundColor: ColorManager.white,
-      body: StreamBuilder<FlowState>(
-          stream: _viewModel.outputState,
-          builder: (context, snapshut) {
-            return snapshut.data?.getScreenWidget(context, _getContentWidget(context),
-                    () {
-                  _viewModel.forgotPassword();
-                }) ??
-                _getContentWidget(context);
-          }),
-    );
+  setEmail(String email) {
+    inputEmail.add(email);
+    this.email = email;
+    _validate();
   }
 
-  Widget _getContentWidget(BuildContext context) {
-    return Scaffold(
-      body: Container(
-          padding: const EdgeInsets.only(top: AppPading.p100),
-          color: ColorManager.white,
-          child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  SvgPicture.asset(ImageAssets.logoIc),
-                  const SizedBox(height: AppSize.s20),
-                  const SizedBox(height: AppSize.s20),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: AppPading.p28, right: AppPading.p28),
-                    child: StreamBuilder<bool>(
-                      stream: _viewModel.outputIsEmailValid,
-                      builder: (context, snapshut) {
-                        return TextFormField(
-                          keyboardType: TextInputType.emailAddress,
-                          controller: _emailController,
-                          decoration: InputDecoration(
-                              hintText: AppStrings.email,
-                              label: const Text(AppStrings.email),
-                              errorText: (snapshut.data ?? true)
-                                  ? null
-                                  : AppStrings.emailError),
-                        );
-                      },
-                    ),
-                  ),
-                  const SizedBox(
-                    height: AppSize.s28,
-                  ),
-                  Padding(
-                      padding: const EdgeInsets.only(
-                          left: AppPading.p28, right: AppPading.p28),
-                      child: StreamBuilder<bool>(
-                        stream: _viewModel.outputIsEmailValid,
-                        builder: (context, snapshut) {
-                          return SizedBox(
-                              width: double.infinity,
-                              height: AppSize.s40,
-                              child: ElevatedButton(
-                                onPressed: (snapshut.data ?? false)
-                                    ? () {
-                                        _viewModel.resetPassword();
-                                      }
-                                    : null,
-                                child: const Text(AppStrings.resetPassword),
-                              ));
-                        },
-                      )),
-                  const SizedBox(
-                    height: AppSize.s28,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: AppPading.p28,
-                      right: AppPading.p28,
-                    ),
-                    child: TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          AppStrings.resendEmail,
-                          style: Theme.of(context).textTheme.subtitle2,
-                        )),
-                  )
-                ],
-              ),
-            ),
-          )),
-    );
-  }
+  @override
+  Sink get inputEmail => _emailStreamController.sink;
 
+  @override
+  Sink get inputIsAllInputValid => _isAllInputValidStreamController.sink;
+
+  // output
   @override
   void dispose() {
-    _viewModel.dispose();
-    super.dispose();
+    _emailStreamController.close();
+    _isAllInputValidStreamController.close();
   }
+
+  @override
+  Stream<bool> get outputIsEmailValid =>
+      _emailStreamController.stream.map((email) => isEmailValid(email));
+
+  @override
+  Stream<bool> get outputIsAllInputValid =>
+      _isAllInputValidStreamController.stream
+          .map((isAllInputValid) => _isAllInputValid());
+
+  _isAllInputValid() {
+    return isEmailValid(email);
+  }
+
+  _validate() {
+    inputIsAllInputValid.add(null);
+  }
+}
+
+abstract class ForgotPasswordViewModelInput {
+  forgotPassword();
+
+  setEmail(String email);
+
+  Sink get inputEmail;
+
+  Sink get inputIsAllInputValid;
+}
+
+abstract class ForgotPasswordViewModelOutput {
+  Stream<bool> get outputIsEmailValid;
+
+  Stream<bool> get outputIsAllInputValid;
 }
