@@ -1,92 +1,113 @@
-import 'dart:async';
-
-import 'package:mvvm_first_c/app/functions.dart';
-import 'package:mvvm_first_c/domain/usecase/forgot_password_usecase.dart';
-import 'package:mvvm_first_c/presentation/base/base.dart';
-import 'package:mvvm_first_c/presentation/state_renderer/state_renderer.dart';
+import 'package:flutter/material.dart';
+import 'package:mvvm_first_c/app/di.dart';
+import 'package:mvvm_first_c/presentation/resources/assets_manager.dart';
+import 'package:mvvm_first_c/presentation/resources/color_manager.dart';
+import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
+import 'package:mvvm_first_c/presentation/resources/values_manager.dart';
 import 'package:mvvm_first_c/presentation/state_renderer/state_renderer_implimenter.dart';
 
-class ForgotPasswordViewModel extends BaseViewModel
-    with ForgotPasswordViewModelInput, ForgotPasswordViewModelOutput {
-  final StreamController _emailStreamController =
-      StreamController<String>.broadcast();
-  final StreamController _isAllInputValidStreamController =
-      StreamController<void>.broadcast();
+import 'forgot_password_view_model.dart';
 
-  final ForgotPasswordUseCase _forgotPasswordUseCase;
-
-  ForgotPasswordViewModel(this._forgotPasswordUseCase);
-
-  var email = "";
-
-  // input
-  @override
-  void start() {
-    inputState.add(ContentState());
-  }
+class ForgotPasswordView extends StatefulWidget {
+  const ForgotPasswordView({Key? key}) : super(key: key);
 
   @override
-  forgotPassword() async {
-    inputState.add(
-        LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
-    (await _forgotPasswordUseCase.execute(email)).fold((failure) {
-      inputState.add(
-          ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
-    }, (authObject) {
-      inputState.add(ContentState());
-    });
-  }
-
-  @override
-  setEmail(String email) {
-    inputEmail.add(email);
-    this.email = email;
-    _validate();
-  }
-
-  @override
-  Sink get inputEmail => _emailStreamController.sink;
-
-  @override
-  Sink get inputIsAllInputValid => _isAllInputValidStreamController.sink;
-
-  // output
-  @override
-  void dispose() {
-    _emailStreamController.close();
-    _isAllInputValidStreamController.close();
-  }
-
-  @override
-  Stream<bool> get outputIsEmailValid =>
-      _emailStreamController.stream.map((email) => isEmailValid(email));
-
-  @override
-  Stream<bool> get outputIsAllInputValid =>
-      _isAllInputValidStreamController.stream
-          .map((isAllInputValid) => _isAllInputValid());
-
-  _isAllInputValid() {
-    return isEmailValid(email);
-  }
-
-  _validate() {
-    inputIsAllInputValid.add(null);
-  }
+  _ForgotPasswordViewState createState() =>_ForgotPasswordViewState();
 }
+class _ForgotPasswordViewState extends State<ForgotPasswordView> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailTextEditingController =
+  TextEditingController();
 
-abstract class ForgotPasswordViewModelInput {
-  forgotPassword();
+  final ForgotPasswordViewModel _viewModel =
+  instance<ForgotPasswordViewModel>();
 
-  setEmail(String email);
+  bind() {
+    _viewModel.start();
+    _emailTextEditingController.addListener(
+            () => _viewModel.setEmail(_emailTextEditingController.text));
+  }
 
-  Sink get inputEmail;
+  @override
+  void initState() {
+    bind();
+    super.initState();
+  }
 
-  Sink get inputIsAllInputValid;
-}
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: StreamBuilder<FlowState>(
+        stream: _viewModel.outputState,
+        builder: (context, snapshot) {
+          return snapshot.data?.getScreenWidget(context,_getContentWidget(),
+                  () {
+                _viewModel.forgotPassword();
+              }) ??
+              _getContentWidget();
+        },
+      ),
+    );
+  }
 
-abstract class ForgotPasswordViewModelOutput {
-  Stream<bool> get outputIsEmailValid;
-
-  Stream<bool> get outputIsAllInputValid;
+  Widget _getContentWidget() {
+    return Container(
+      constraints: const BoxConstraints.expand(),
+      padding:   EdgeInsets.only(top: AppPadding.p100),
+      color: ColorManager.white,
+      child: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              const Image(image: AssetImage(ImageAssets.splashLogo)),
+              const SizedBox(
+                height: AppSize.s28,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: AppPadding.p28, right: AppPadding.p28),
+                child: StreamBuilder<bool>(
+                  stream: _viewModel.outputIsEmailValid,
+                  builder: (context, snapshot) {
+                    return TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _emailTextEditingController,
+                      decoration: InputDecoration(
+                          hintText: AppStrings.emailHint,
+                          labelText: AppStrings.emailHint,
+                          errorText: (snapshot.data ?? true)
+                              ? null
+                              : AppStrings.invalidEmail),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: AppSize.s28,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: AppPadding.p28, right: AppPadding.p28),
+                child: StreamBuilder<bool>(
+                  stream: _viewModel.outputIsAllInputValid,
+                  builder: (context, snapshot) {
+                    return SizedBox(
+                      width: double.infinity,
+                      height: AppSize.s40,
+                      child: ElevatedButton(
+                          onPressed: (snapshot.data ?? false)
+                              ? () => _viewModel.forgotPassword()
+                              : null,
+                          child: const Text(AppStrings.resetPassword)),
+                    );
+                  },
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }

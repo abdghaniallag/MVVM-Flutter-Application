@@ -119,7 +119,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
         children: [
           //left arrow
           Padding(
-            padding: const EdgeInsets.all(AppPading.p14),
+            padding: const EdgeInsets.all(AppPadding.p14),
             child: GestureDetector(
               child: SizedBox(
                 height: AppSize.s20,
@@ -138,14 +138,14 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             children: [
               for (var i = 0; i < sliderViewObject.numOfSlides; i++)
                 Padding(
-                  padding: const EdgeInsets.all(AppPading.p8),
+                  padding: const EdgeInsets.all(AppPadding.p8),
                   child: _getProperCircle(i, sliderViewObject.currentIndex),
                 )
             ],
           ),
           //right arrow
           Padding(
-            padding: const EdgeInsets.all(AppPading.p14),
+            padding: const EdgeInsets.all(AppPadding.p14),
             child: GestureDetector(
               child: SizedBox(
                 height: AppSize.s20,
@@ -177,7 +177,7 @@ class OnboardingPage extends StatelessWidget {
       children: [
         const SizedBox(height: AppSize.s40),
         Padding(
-          padding: const EdgeInsets.all(AppPading.p8),
+          padding: const EdgeInsets.all(AppPadding.p8),
           child: Text(
             _sliderObject.title,
             textAlign: TextAlign.center,
@@ -185,7 +185,7 @@ class OnboardingPage extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(AppPading.p8),
+          padding: const EdgeInsets.all(AppPadding.p8),
           child: Text(
             _sliderObject.subTitle,
             textAlign: TextAlign.center,

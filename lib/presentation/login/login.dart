@@ -68,7 +68,7 @@ class _LoginViewState extends State<LoginView> {
   Widget _getContentWidget() {
     return Scaffold(
       body: Container(
-          padding: const EdgeInsets.only(top: AppPading.p100),
+          padding: const EdgeInsets.only(top: AppPadding.p100),
           color: ColorManager.white,
           child: SingleChildScrollView(
             child: Form(
@@ -79,7 +79,7 @@ class _LoginViewState extends State<LoginView> {
                   const SizedBox(height: AppSize.s20),
                   Padding(
                     padding: const EdgeInsets.only(
-                        left: AppPading.p28, right: AppPading.p28),
+                        left: AppPadding.p28, right: AppPadding.p28),
                     child: StreamBuilder<bool>(
                       stream: _viewModel.outputIsUserNameValid,
                       builder: (context, snapshut) {
@@ -99,7 +99,7 @@ class _LoginViewState extends State<LoginView> {
                   const SizedBox(height: AppSize.s20),
                   Padding(
                     padding: const EdgeInsets.only(
-                        left: AppPading.p28, right: AppPading.p28),
+                        left: AppPadding.p28, right: AppPadding.p28),
                     child: StreamBuilder<bool>(
                       stream: _viewModel.outputIspasswordValid,
                       builder: (context, snapshut) {
@@ -121,7 +121,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   Padding(
                       padding: const EdgeInsets.only(
-                          left: AppPading.p28, right: AppPading.p28),
+                          left: AppPadding.p28, right: AppPadding.p28),
                       child: StreamBuilder<bool>(
                         stream: _viewModel.outputIsAllInputsValid,
                         builder: (context, snapshut) {
@@ -140,9 +140,9 @@ class _LoginViewState extends State<LoginView> {
                       )),
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: AppPading.p8,
-                        left: AppPading.p28,
-                        right: AppPading.p28),
+                        top: AppPadding.p8,
+                        left: AppPadding.p28,
+                        right: AppPadding.p28),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

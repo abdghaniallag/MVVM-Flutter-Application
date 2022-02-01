@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mvvm_first_c/app/di.dart';
 import 'package:mvvm_first_c/presentation/Forgot_password/Forgot_password.dart';
+import 'package:mvvm_first_c/presentation/forgot_password/forgot_password.dart';
 import 'package:mvvm_first_c/presentation/login/login.dart';
 import 'package:mvvm_first_c/presentation/main/main.dart';
 import 'package:mvvm_first_c/presentation/onBoarding/onBording.dart';
