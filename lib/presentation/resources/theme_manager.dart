@@ -55,7 +55,7 @@ ThemeData getAplicationTheme() {
     ),
 // input decoration theme(text form field )
     inputDecorationTheme: InputDecorationTheme(
-      contentPadding: EdgeInsets.all(AppPading.p8),
+      contentPadding: EdgeInsets.all(AppPadding.p8),
       hintStyle: getRegularStyle(color: ColorManager.gray1),
       labelStyle: getMediumStyle(color: ColorManager.darkGray),
       errorStyle: getRegularStyle(color: ColorManager.error),

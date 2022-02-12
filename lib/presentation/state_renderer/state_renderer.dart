@@ -112,7 +112,7 @@ class StateRenderer extends StatelessWidget {
   Widget _getRetryButton(String buttonTitle, BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(AppPading.p18),
+        padding: const EdgeInsets.all(AppPadding.p18),
         child: SizedBox(
             width: AppSize.s180,
             child: ElevatedButton(
@@ -142,7 +142,7 @@ class StateRenderer extends StatelessWidget {
   Widget _getMessage(String message) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(AppPading.p18),
+        padding: const EdgeInsets.all(AppPadding.p18),
         child: Text(
           message,
           style:
