@@ -149,7 +149,7 @@ class _LoginViewState extends State<LoginView> {
                         TextButton(
                             onPressed: () {
                               Navigator.pushNamed(
-                                  context, Routes.ForgotPasswordRoute);
+                                  context, Routes.forgotPasswordRoute);
                             },
                             child: Text(
                               AppStrings.ForgotPassword,
