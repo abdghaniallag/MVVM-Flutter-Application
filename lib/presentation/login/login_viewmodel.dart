@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_final_fields
+
 import 'dart:async';
 import 'dart:io';
 
@@ -16,7 +18,7 @@ class LoginViewModel extends BaseViewModel
       StreamController<String>.broadcast();
   StreamController _isAllInputsValidController =
       StreamController<void>.broadcast();
-StreamController _isUserLoggedSeccesfuly =
+  StreamController isUserLoggedInSuccessfullyController =
       StreamController<void>();
 
   var loginObject = LoginObject("", "");
@@ -28,6 +30,7 @@ StreamController _isUserLoggedSeccesfuly =
     _userNameStreamController.close();
     _passwordStreamController.close();
     _isAllInputsValidController.close();
+    isUserLoggedInSuccessfullyController.close();
   }
 
   @override
@@ -65,21 +68,25 @@ StreamController _isUserLoggedSeccesfuly =
   Sink get inputAllInputs => _isAllInputsValidController.sink;
 
   @override
-  login() async {inputState.add(
-    LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
-   
+  login() async {
+    inputState.add(
+        LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
+
     (await _loginUseCase.execute(
             LoginUseCaseInupt(loginObject.userName, loginObject.password)))
         .fold(
             (failure) => {
                   //left failure
-                  // inputState.add(ErrorState(
-                  //     StateRendererType.POPUP_ERROR_STATE, failure.message))
-                },
-            (data) => {{
-                  //right success
-                  inputState.add(ContentState())}
-                });
+                  inputState.add(ErrorState(
+                      StateRendererType.POPUP_ERROR_STATE, failure.message))
+                }, (data) {
+      {
+        //right success
+        inputState.add(ContentState());
+        // navigate to main screen
+        isUserLoggedInSuccessfullyController.add(true);
+      }
+    });
   }
 
 //outpputs

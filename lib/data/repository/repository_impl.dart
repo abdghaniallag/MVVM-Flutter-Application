@@ -9,22 +9,18 @@ import 'package:mvvm_first_c/domain/model.dart';
 import 'package:mvvm_first_c/data/request/request.dart';
 import 'package:mvvm_first_c/data/network/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:mvvm_first_c/domain/repository.dart';
-import 'package:mvvm_first_c/presentation/state_renderer/state_renderer.dart';
-import 'package:mvvm_first_c/presentation/state_renderer/state_renderer_implimenter.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-
+import 'package:mvvm_first_c/domain/repository.dart';  
 class RepositoryImpl extends Repository {
-  RemotDataSource _remotDataSource;
+  RemotDataSource _remoteDataSource;
   NetworkInfo _networkInfo;
-  RepositoryImpl(this._remotDataSource, this._networkInfo);
+  RepositoryImpl(this._remoteDataSource, this._networkInfo);
   @override
   Future<Either<Failure, Authentication>> login(
       //its safe to call the API
       LoginRequest loginRequest) async {
-    if (await _networkInfo.isConected) {
+    if (await _networkInfo.isConnected) {
       try {
-         final response = await _remotDataSource.login(loginRequest);
+         final response = await _remoteDataSource.login(loginRequest);
       if (response.status == ApiInternalStatus.SUCCESS) {
         // return data
        
@@ -38,13 +34,40 @@ class RepositoryImpl extends Repository {
             response.status?? ApiInternalStatus.FAILURE,response.message??ResponseMessage.DEFAULT ));
       }
       } catch (error) {  
-       return Left(ErrorHandler.handel(error).failure);
+       return Left(ErrorHandler.handle(error).failure);
 
       }
      
     } else {
       // return connection error
-      return Left( (DataSource.NO_INRENET_CONNECTION.getFailure()));
+      return Left( (DataSource.NO_INTERNET_CONNECTION.getFailure()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> forgotPassword(String email) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        // its safe to call API
+        final response = await _remoteDataSource.forgotPassword(email);
+
+        if (response.status == ApiInternalStatus.SUCCESS) {
+          // success
+          // return right
+          return Right(response.toDomain());
+        } else {
+          // failure
+          // return left
+          return Left(Failure(response.status ?? ResponseCode.DEFAULT,
+              response.message ?? ResponseMessage.DEFAULT));
+        }
+      } catch (error) {
+        return Left(ErrorHandler.handle(error).failure);
+      }
+    } else {
+      // return network connection error
+      // return left
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
     }
   }
 }

@@ -15,13 +15,13 @@ enum DataSource {
   RECEIVE_TIMEOUT,
   SEND_TIMEOUT,
   CACHE_ERROR,
-  NO_INRENET_CONNECTION,
+  NO_INTERNET_CONNECTION, 
   DEFAULT
 }
 
 class ErrorHandler implements Exception {
   late Failure failure;
-  ErrorHandler.handel(dynamic error) {
+  ErrorHandler.handle(dynamic error) {
     if (error is DioError) {
       failure = _handelError(error);
     } else {
@@ -90,9 +90,9 @@ extension DataSourceExtention on DataSource {
         return Failure(ResponseCode.SEND_TIMEOUT, ResponseMessage.SEND_TIMEOUT);
       case DataSource.CACHE_ERROR:
         return Failure(ResponseCode.CACHE_ERROR, ResponseMessage.CACHE_ERROR);
-      case DataSource.NO_INRENET_CONNECTION:
-        return Failure(ResponseCode.NO_INRENET_CONNECTION,
-            ResponseMessage.NO_INRENET_CONNECTION);
+      case DataSource.NO_INTERNET_CONNECTION:
+        return Failure(ResponseCode.NO_INTERNET_CONNECTION,
+            ResponseMessage.NO_INTERNET_CONNECTION);
       case DataSource.DEFAULT:
         return Failure(ResponseCode.DEFAULT, ResponseMessage.DEFAULT);
       default:
@@ -117,7 +117,7 @@ class ResponseCode {
   static const int RECEIVE_TIMEOUT = -4;
   static const int SEND_TIMEOUT = -5;
   static const int CACHE_ERROR = -6;
-  static const int NO_INRENET_CONNECTION = -7;
+  static const int NO_INTERNET_CONNECTION = -7;
 }
 
 class ResponseMessage {
@@ -137,7 +137,7 @@ class ResponseMessage {
   static const String RECEIVE_TIMEOUT = "time out error, try again later";
   static const String SEND_TIMEOUT = "time out error, try again later";
   static const String CACHE_ERROR = "time out error, try again later";
-  static const String NO_INRENET_CONNECTION =
+  static const String NO_INTERNET_CONNECTION =
       "please check your internet connection";
 }
 

@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mvvm_first_c/app/app_preferences.dart';
+import 'package:mvvm_first_c/app/di.dart';
 import 'package:mvvm_first_c/domain/model.dart';
 import 'package:mvvm_first_c/presentation/onBoarding/onboarding_viewmodel.dart';
 import 'package:mvvm_first_c/presentation/resources/assets_manager.dart';
@@ -19,9 +21,13 @@ class OnBoardingView extends StatefulWidget {
 }
 
 class _OnBoardingViewState extends State<OnBoardingView> {
+
   PageController _pageController = PageController(initialPage: 0);
   OnboardingViewModel _viewModel = OnboardingViewModel();
+   AppPreferences _appPreferences=instance<AppPreferences>();
+ 
   _bind() {
+    _appPreferences.setOnbordingIsViewed();
     _viewModel.start();
   }
 
@@ -113,7 +119,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
         children: [
           //left arrow
           Padding(
-            padding: const EdgeInsets.all(AppPading.p14),
+            padding: const EdgeInsets.all(AppPadding.p14),
             child: GestureDetector(
               child: SizedBox(
                 height: AppSize.s20,
@@ -132,14 +138,14 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             children: [
               for (var i = 0; i < sliderViewObject.numOfSlides; i++)
                 Padding(
-                  padding: const EdgeInsets.all(AppPading.p8),
+                  padding: const EdgeInsets.all(AppPadding.p8),
                   child: _getProperCircle(i, sliderViewObject.currentIndex),
                 )
             ],
           ),
           //right arrow
           Padding(
-            padding: const EdgeInsets.all(AppPading.p14),
+            padding: const EdgeInsets.all(AppPadding.p14),
             child: GestureDetector(
               child: SizedBox(
                 height: AppSize.s20,
@@ -171,7 +177,7 @@ class OnboardingPage extends StatelessWidget {
       children: [
         const SizedBox(height: AppSize.s40),
         Padding(
-          padding: const EdgeInsets.all(AppPading.p8),
+          padding: const EdgeInsets.all(AppPadding.p8),
           child: Text(
             _sliderObject.title,
             textAlign: TextAlign.center,
@@ -179,7 +185,7 @@ class OnboardingPage extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(AppPading.p8),
+          padding: const EdgeInsets.all(AppPadding.p8),
           child: Text(
             _sliderObject.subTitle,
             textAlign: TextAlign.center,

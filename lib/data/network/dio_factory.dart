@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mvvm_first_c/app/app_prefs.dart';
+import 'package:mvvm_first_c/app/app_preferences.dart';
 import 'package:mvvm_first_c/app/constant.dart';
 import 'package:mvvm_first_c/presentation/resources/languge_manager.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';

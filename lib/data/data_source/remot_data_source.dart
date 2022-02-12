@@ -4,6 +4,7 @@ import 'package:mvvm_first_c/data/responses/responses.dart';
 
 abstract class RemotDataSource {
   Future<AuthenticationRespons> login(LoginRequest loginRequest);
+  Future<ForgotPasswordResponse> forgotPassword(String email);
 }
 
 class RemotDataSourceImpilenter implements RemotDataSource {
@@ -11,7 +12,12 @@ class RemotDataSourceImpilenter implements RemotDataSource {
   RemotDataSourceImpilenter(this._appServiceClient);
   @override
   Future<AuthenticationRespons> login(LoginRequest loginRequest) async {
-    return await _appServiceClient.login(loginRequest.email,
-        loginRequest.password, "","");
+    return await _appServiceClient.login(
+        loginRequest.email, loginRequest.password, "", "");
+  }
+
+  @override
+  Future<ForgotPasswordResponse> forgotPassword(String email) async {
+    return await _appServiceClient.forgotPassword(email);
   }
 }

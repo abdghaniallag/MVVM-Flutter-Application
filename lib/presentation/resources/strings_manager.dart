@@ -13,14 +13,17 @@ class AppStrings {
   static  const String userName='User name';
   static  const String userNameError='User name is wrong'; 
   static  const String password='Password'; 
-  static  const String passwordError='password is wrong'; 
-  static  const String login='Login'; 
+  static  const String passwordError='Password is wrong';
+  static  const String resendEmail='Didn"t recive email? Resend'; 
+  static  const String login='Login';  
+  static  const String resetPassword='Reset Password'; 
   static  const String register='Register'; 
-  static  const String forgetPassword='Forget password'; 
+  static  const String ForgotPassword='Forgot password'; 
   static  const String loading='Loading...';  
   static  const String retryAgain='Retry again'; 
   static  const String ok='OK'; 
  
-
+static const String emailHint = 'Email';
+  static const String invalidEmail = "Invalid Email";
 
 }
