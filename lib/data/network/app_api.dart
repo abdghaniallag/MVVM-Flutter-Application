@@ -20,10 +20,10 @@ abstract class AppServiceClient {
   );
   @POST('/costumers/register')
   Future<AuthenticationRespons> register(
+    @Field("country_mobile_code") String countryMobileCode,
+    @Field("user_name") String userName,
     @Field("email") String email,
     @Field("password") String password,
-    @Field("imei") String imei,
-    @Field("deviceType") String deviceType,
-    @Field("deviceType") String mobile,
+    @Field("profile_picture") String profilePicture,
   );
 }
