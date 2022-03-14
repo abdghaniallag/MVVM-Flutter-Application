@@ -1,5 +1,5 @@
 import 'dart:async';
- 
+
 import 'package:mvvm_first_c/domain/usecase/forgot_password_usecase.dart';
 import 'package:mvvm_first_c/presentation/base/base.dart';
 import 'package:mvvm_first_c/presentation/state_renderer/state_renderer.dart';
@@ -9,7 +9,8 @@ class ForgotPasswordViewModel extends BaseViewModel
     with ForgotPasswordViewModelInputs, ForgotPasswordViewModelOutputs {
   StreamController _emailStreamController =
       StreamController<String>.broadcast();
-  StreamController _isAllInputValidStreamController = StreamController<bool>();
+  StreamController _isAllInputValidStreamController =
+      StreamController<bool>.broadcast();
   ForgotPasswordUseCase _forgotPasswordUseCase;
   ForgotPasswordViewModel(this._forgotPasswordUseCase);
   var email = "";
@@ -37,7 +38,7 @@ class ForgotPasswordViewModel extends BaseViewModel
   @override
   setEmail(String email) {
     InputEmail.add(email);
-    this.email=email;
+    this.email = email;
     _validate();
   }
 
@@ -48,20 +49,22 @@ class ForgotPasswordViewModel extends BaseViewModel
     (await _forgotPasswordUseCase.execute(email)).fold((failure) {
       inputState.add(
           ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
-    }, (authObject) {
-      inputState.add(ContentState());
+    }, (supportMessage) {
+      inputState.add(SuccessState(supportMessage));
     });
   }
 
-  @override 
+  @override
   Sink get InputIsAllInputValid => _isAllInputValidStreamController.sink;
 
-   _validate() {
-     InputIsAllInputValid.add(null);
-   }
+  _validate() {
+    InputIsAllInputValid.add(null);
+  }
 
-  @override 
-  Stream<bool> get outputIsAllInputValid => _isAllInputValidStreamController.stream.map((isAllInputValid) => _isAllInputValid()) ;
+  @override
+  Stream<bool> get outputIsAllInputValid =>
+      _isAllInputValidStreamController.stream
+          .map((isAllInputValid) => _isAllInputValid());
 
   _isAllInputValid() {
     return isEmailValid(email);

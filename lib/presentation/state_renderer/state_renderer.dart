@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mvvm_first_c/data/mapper/mapper.dart';
 import 'package:mvvm_first_c/data/network/failure.dart';
@@ -13,6 +12,7 @@ enum StateRendererType {
   //POPUP STATES
   POPUP_LOADING_STATE,
   POPUP_ERROR_STATE,
+  POPUP_SUCCESS_STATE,
   //FULL SCREEN STATES
   FULL_SCREEN_LOADING_STATE,
   FULL_SCREEN_ERROR_STATE,
@@ -53,6 +53,13 @@ class StateRenderer extends StatelessWidget {
           _getMessage(message),
           _getRetryButton(AppStrings.ok, context)
         ]);
+      case StateRendererType.POPUP_SUCCESS_STATE:
+        return _getPopupDialog(context, [
+          _getAnimatedImage(JsonAssets.success),
+          _getMessage(title),
+          _getMessage(message),
+          _getRetryButton(AppStrings.ok, context)
+        ]);
       case StateRendererType.FULL_SCREEN_LOADING_STATE:
         return _getItemsInColumn(
             [_getAnimatedImage(JsonAssets.loading), _getMessage(message)]);
@@ -75,25 +82,20 @@ class StateRenderer extends StatelessWidget {
   Widget _getPopupDialog(BuildContext context, List<Widget> children) {
     return Dialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppSize.s14),
-      ),
+          borderRadius: BorderRadius.circular(AppSize.s14)),
       elevation: AppSize.s1_5,
       backgroundColor: Colors.transparent,
       child: Container(
         decoration: BoxDecoration(
-          color: ColorManager.white,
-          shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(AppSize.s14),
-          boxShadow:const [ 
-            BoxShadow(
-                color: Colors.black26,
-                blurRadius: AppSize.s12,
-                offset: Offset(
-                  AppSize.s0,
-                  AppSize.s12,
-                )),
-          ],
-        ),
+            color: ColorManager.white,
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.circular(AppSize.s14),
+            boxShadow: const [
+              BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: AppSize.s12,
+                  offset: Offset(AppSize.s0, AppSize.s12))
+            ]),
         child: _getDialogContent(context, children),
       ),
     );
