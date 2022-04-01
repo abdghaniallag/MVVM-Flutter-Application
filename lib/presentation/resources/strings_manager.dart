@@ -30,4 +30,10 @@ class AppStrings {
 
   static const String emailHint = 'Email';
   static const String invalidEmail = "Invalid Email";
+  static const String name = 'Name';
+  static const String mobile = "Mobile number";
+  static const String mobileError = "Invalid mobile number";
+  static const String profilePicture = 'Profile picture';
+  static const String profilePictureError = 'Invalid profile picture';
+  static const String haveAnAccount = "Already have an account? Login";
 }

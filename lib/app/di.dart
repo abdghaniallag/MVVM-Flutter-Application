@@ -13,6 +13,9 @@ import 'package:mvvm_first_c/presentation/forgot_password/forgot_password_view_m
 import 'package:mvvm_first_c/presentation/login/login_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../domain/usecase/register_usecase.dart';
+import '../presentation/register/registerViewModel.dart';
+
 final instance = GetIt.instance;
 Future<void> initAppModule() async {
   // Shared Preferences
@@ -41,6 +44,15 @@ initLoginModule() {
   if (!GetIt.I.isRegistered<LoginUseCase>()) {
     instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance()));
     instance.registerFactory<LoginViewModel>(() => LoginViewModel(instance()));
+  }
+}
+
+initRegisterModule() {
+  if (!GetIt.I.isRegistered<RegisterUseCase>()) {
+    instance
+        .registerFactory<RegisterUseCase>(() => RegisterUseCase(instance()));
+    instance.registerFactory<RegisterViewModel>(
+        () => RegisterViewModel(instance()));
   }
 }
 

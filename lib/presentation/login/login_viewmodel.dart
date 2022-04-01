@@ -1,12 +1,10 @@
 // ignore_for_file: prefer_final_fields
 
 import 'dart:async';
-import 'dart:io';
 
 import 'package:mvvm_first_c/domain/usecase/login_usecase.dart';
 import 'package:mvvm_first_c/presentation/base/base.dart';
 import 'package:mvvm_first_c/presentation/common/freezed_data.dart';
-import 'package:mvvm_first_c/presentation/resources/values_manager.dart';
 import 'package:mvvm_first_c/presentation/state_renderer/state_renderer.dart';
 import 'package:mvvm_first_c/presentation/state_renderer/state_renderer_implimenter.dart';
 
@@ -22,7 +20,7 @@ class LoginViewModel extends BaseViewModel
       StreamController<void>();
 
   var loginObject = LoginObject("", "");
-  LoginUseCase _loginUseCase; //todo remove ?
+  LoginUseCase _loginUseCase;
   LoginViewModel(this._loginUseCase);
   //inputs
   @override
@@ -47,16 +45,16 @@ class LoginViewModel extends BaseViewModel
   Sink get inputUserName => _userNameStreamController.sink;
 
   @override
-  setPassword(String Password) {
-    inputPassword.add(Password);
-    loginObject = loginObject.copyWith(password: Password);
+  setPassword(String password) {
+    inputPassword.add(password);
+    loginObject = loginObject.copyWith(password: password);
     _validat();
   }
 
   @override
-  setUserName(String UserName) {
-    inputUserName.add(UserName);
-    loginObject = loginObject.copyWith(userName: UserName);
+  setUserName(String userName) {
+    inputUserName.add(userName);
+    loginObject = loginObject.copyWith(userName: userName);
     _validat();
   }
 
@@ -116,8 +114,8 @@ class LoginViewModel extends BaseViewModel
 }
 
 abstract class LoginViewModelInputs {
-  setUserName(String UserName);
-  setPassword(String Password);
+  setUserName(String userName);
+  setPassword(String password);
   login();
   Sink get inputUserName;
   Sink get inputPassword;
