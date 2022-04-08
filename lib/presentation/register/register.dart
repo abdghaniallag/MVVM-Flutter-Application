@@ -1,6 +1,10 @@
+import 'dart:io';
+
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:mvvm_first_c/data/mapper/mapper.dart';
 import 'package:mvvm_first_c/presentation/register/registerViewModel.dart';
 
 import '../../app/app_preferences.dart';
@@ -21,8 +25,9 @@ class RegisterView extends StatefulWidget {
 
 class _RegisterViewState extends State<RegisterView> {
   RegisterViewModel _viewModel = instance<RegisterViewModel>();
+  ImagePicker imagePicker = instance<ImagePicker>();
   AppPreferences _appPreferences = instance<AppPreferences>();
-  TextEditingController _nameController = TextEditingController();
+  TextEditingController _userNameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _emailontroller = TextEditingController();
   TextEditingController _mobileController = TextEditingController();
@@ -30,23 +35,16 @@ class _RegisterViewState extends State<RegisterView> {
   final _formKey = GlobalKey<FormState>();
   _bind() {
     _viewModel.start();
-    _nameController.addListener(() => _viewModel.setName(_nameController.text));
+    _userNameController
+        .addListener(() => _viewModel.setuserName(_userNameController.text));
     _passwordController
         .addListener(() => _viewModel.setPassword(_passwordController.text));
-
-    _emailontroller.addListener(() => _viewModel.setName(_emailontroller.text));
+    _emailontroller
+        .addListener(() => _viewModel.setEmail(_emailontroller.text));
     _mobileController
-        .addListener(() => _viewModel.setPassword(_mobileController.text));
-    _profilePictureController.addListener(
-        () => _viewModel.setPassword(_profilePictureController.text));
-    _viewModel.isUserLoggedInSuccessfullyController.stream
-        .listen((isSuccessFullyLoge) {
-//      navigate to main screen
-      SchedulerBinding.instance?.addPostFrameCallback((timeStamp) {
-        _appPreferences.setUserLoggedIn();
-        Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
-      });
-    });
+        .addListener(() => _viewModel.setMobile(_mobileController.text));
+    _profilePictureController.addListener(() =>
+        _viewModel.setProfilePicture(File(_profilePictureController.text)));
   }
 
   @override
@@ -59,14 +57,21 @@ class _RegisterViewState extends State<RegisterView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorManager.white,
+      appBar: AppBar(
+        elevation: AppSize.s0,
+        iconTheme: IconThemeData(color: ColorManager.primary),
+        backgroundColor: ColorManager.white,
+      ),
       body: StreamBuilder<FlowState>(
           stream: _viewModel.outputState,
           builder: (context, snapshut) {
-            return snapshut.data?.getScreenWidget(context, _getContentWidget(),
-                    () {
-                  _viewModel.register();
-                }) ??
-                _getContentWidget();
+            return Center(
+              child: snapshut.data
+                      ?.getScreenWidget(context, _getContentWidget(), () {
+                    _viewModel.register();
+                  }) ??
+                  _getContentWidget(),
+            );
           }),
     );
   }
@@ -74,100 +79,112 @@ class _RegisterViewState extends State<RegisterView> {
   Widget _getContentWidget() {
     return Scaffold(
       body: Container(
-          padding: const EdgeInsets.only(top: AppPadding.p100),
+          padding: const EdgeInsets.only(top: AppPadding.p8),
           color: ColorManager.white,
           child: SingleChildScrollView(
             child: Form(
               key: _formKey,
               child: Column(
                 children: [
-                  SvgPicture.asset(ImageAssets.logoIc),
+                  SizedBox(
+                      height: AppSize.s100,
+                      child: SvgPicture.asset(ImageAssets.logoIc)),
+                  const SizedBox(height: AppSize.s18),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: AppPadding.p28, right: AppPadding.p28),
+                    child: StreamBuilder<String?>(
+                      stream: _viewModel.outputErrorUserNameValid,
+                      builder: (context, snapshut) {
+                        return TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                            controller: _userNameController,
+                            decoration: InputDecoration(
+                              hintText: AppStrings.name,
+                              label: const Text(AppStrings.name),
+                              errorText: snapshut.data,
+                            ));
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: AppSize.s20),
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: AppPadding.p28,
+                          right: AppPadding.p28,
+                          bottom: AppPadding.p20),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              flex: 1,
+                              child: CountryCodePicker(
+                                onChanged: (country) {
+                                  _viewModel.setCountryCode(
+                                      country.dialCode ?? EMPTY);
+                                },
+                                initialSelection: "+213",
+                                showCountryOnly: true,
+                                showOnlyCountryWhenClosed: false,
+                                hideMainText: true,
+                                favorite: [
+                                  "+966",
+                                  "+213",
+                                  "+39",
+                                ],
+                              )),
+                          Expanded(
+                            flex: 3,
+                            child: StreamBuilder<String?>(
+                              stream: _viewModel.outputErrorMobileValid,
+                              builder: (context, snapshut) {
+                                return TextFormField(
+                                    keyboardType: TextInputType.phone,
+                                    controller: _mobileController,
+                                    decoration: InputDecoration(
+                                      hintText: AppStrings.mobile,
+                                      label: const Text(AppStrings.mobile),
+                                      errorText: (snapshut.data),
+                                    ));
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: AppPadding.p28, right: AppPadding.p28),
+                    child: StreamBuilder<String?>(
+                      stream: _viewModel.outputErrorEmailValid,
+                      builder: (context, snapshut) {
+                        return TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                            controller: _emailontroller,
+                            decoration: InputDecoration(
+                              hintText: AppStrings.emailHint,
+                              label: const Text(AppStrings.emailHint),
+                              errorText: (snapshut.data),
+                            ));
+                      },
+                    ),
+                  ),
                   const SizedBox(height: AppSize.s20),
                   Padding(
                     padding: const EdgeInsets.only(
                         left: AppPadding.p28, right: AppPadding.p28),
-                    child: StreamBuilder<bool>(
-                      stream: _viewModel.outputIsNameValid,
+                    child: StreamBuilder<String?>(
+                      stream: _viewModel.outputErrorPasswordValid,
                       builder: (context, snapshut) {
                         return TextFormField(
-                          keyboardType: TextInputType.emailAddress,
-                          controller: _nameController,
-                          decoration: InputDecoration(
-                              hintText: AppStrings.name,
-                              label: const Text(AppStrings.name),
-                              errorText: (snapshut.data ?? true)
-                                  ? null
-                                  : AppStrings.name),
-                        );
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: AppSize.s16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SizedBox(
-                          height: AppSize.s36,
-                          child: SvgPicture.asset(ImageAssets.emptyCircle)),
-                      const SizedBox(width: AppSize.s14),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: AppPadding.p28, right: AppPadding.p28),
-                        child: StreamBuilder<bool>(
-                          stream: _viewModel.outputIsmobileValid,
-                          builder: (context, snapshut) {
-                            return TextFormField(
-                              keyboardType: TextInputType.emailAddress,
-                              controller: _mobileController,
-                              decoration: InputDecoration(
-                                  hintText: AppStrings.mobile,
-                                  label: const Text(AppStrings.mobile),
-                                  errorText: (snapshut.data ?? true)
-                                      ? null
-                                      : AppStrings.mobileError),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: AppSize.s16),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: AppPadding.p28, right: AppPadding.p28),
-                    child: StreamBuilder<bool>(
-                      stream: _viewModel.outputIsEmailValid,
-                      builder: (context, snapshut) {
-                        return TextFormField(
-                          keyboardType: TextInputType.emailAddress,
-                          controller: _emailontroller,
-                          decoration: InputDecoration(
-                              hintText: AppStrings.emailHint,
-                              label: const Text(AppStrings.emailHint),
-                              errorText: (snapshut.data ?? true)
-                                  ? null
-                                  : AppStrings.invalidEmail),
-                        );
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: AppSize.s16),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: AppPadding.p28, right: AppPadding.p28),
-                    child: StreamBuilder<bool>(
-                      stream: _viewModel.outputIspasswordValid,
-                      builder: (context, snapshut) {
-                        return TextFormField(
-                          keyboardType: TextInputType.visiblePassword,
-                          controller: _passwordController,
-                          decoration: InputDecoration(
+                            keyboardType: TextInputType.visiblePassword,
+                            controller: _passwordController,
+                            decoration: InputDecoration(
                               hintText: AppStrings.password,
                               label: const Text(AppStrings.password),
-                              errorText: (snapshut.data ?? true)
-                                  ? null
-                                  : AppStrings.passwordError),
-                        );
+                              errorText: (snapshut.data),
+                            ));
                       },
                     ),
                   ),
@@ -175,24 +192,19 @@ class _RegisterViewState extends State<RegisterView> {
                   Padding(
                     padding: const EdgeInsets.only(
                         left: AppPadding.p28, right: AppPadding.p28),
-                    child: StreamBuilder<bool>(
-                      stream: _viewModel.outputIsProfilePictureValid,
-                      builder: (context, snapshut) {
-                        return TextFormField(
-                          keyboardType: TextInputType.emailAddress,
-                          controller: _profilePictureController,
-                          decoration: InputDecoration(
-                              hintText: AppStrings.profilePicture,
-                              label: const Text(AppStrings.profilePicture),
-                              errorText: (snapshut.data ?? true)
-                                  ? null
-                                  : AppStrings.profilePictureError),
-                        );
-                      },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: ColorManager.lightGray)),
+                      child: GestureDetector(
+                        child: _getMediaWidget(),
+                        onTap: () {
+                          _showPicture();
+                        },
+                      ),
                     ),
                   ),
                   const SizedBox(
-                    height: AppSize.s28,
+                    height: AppSize.s20,
                   ),
                   Padding(
                       padding: const EdgeInsets.only(
@@ -215,9 +227,7 @@ class _RegisterViewState extends State<RegisterView> {
                       )),
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: AppPadding.p8,
-                        left: AppPadding.p28,
-                        right: AppPadding.p28),
+                        left: AppPadding.p28, right: AppPadding.p28),
                     child: TextButton(
                         onPressed: () {
                           Navigator.pushNamed(context, Routes.loginRoute);
@@ -232,6 +242,84 @@ class _RegisterViewState extends State<RegisterView> {
             ),
           )),
     );
+  }
+
+  Widget _getMediaWidget() {
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: AppPadding.p8,
+        right: AppPadding.p8,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Flexible(
+            child: Text(AppStrings.profilePicture),
+          ),
+          Flexible(
+            child: StreamBuilder<File?>(
+              stream: _viewModel.outputProfilePicture,
+              builder: (context, snapshut) {
+                return _getImagePickedByUser(snapshut.data);
+              },
+            ),
+          ),
+          Flexible(
+            child: SvgPicture.asset(ImageAssets.cameraIc),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _getImagePickedByUser(File? image) {
+    if (image != null && image.path.isNotEmpty) {
+      return Image.file(image);
+    } else {
+      return Container();
+    }
+  }
+
+  _showPicture() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return SafeArea(
+          child: Wrap(
+            children: [
+              ListTile(
+                trailing: const Icon(Icons.arrow_forward),
+                leading: const Icon(Icons.image_rounded),
+                title: const Text(AppStrings.pictureGallery),
+                onTap: () {
+                  _getImageFromGallery();
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                trailing: const Icon(Icons.arrow_forward),
+                leading: const Icon(Icons.camera_alt_rounded),
+                title: const Text(AppStrings.pictureCamera),
+                onTap: () {
+                  _getImageFromCamera();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  _getImageFromGallery() async {
+    var image = await imagePicker.pickImage(source: ImageSource.gallery);
+    _viewModel.setProfilePicture(File(image?.path ?? EMPTY));
+  }
+
+  _getImageFromCamera() async {
+    var image = await imagePicker.pickImage(source: ImageSource.camera);
+    _viewModel.setProfilePicture(File(image?.path ?? EMPTY));
   }
 
   @override
