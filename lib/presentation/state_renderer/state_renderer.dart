@@ -102,12 +102,11 @@ class StateRenderer extends StatelessWidget {
   }
 
   Widget _getDialogContent(BuildContext context, List<Widget> children) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: children,
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: children,
     );
   }
 
@@ -158,6 +157,7 @@ class StateRenderer extends StatelessWidget {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: children,
       ),
     );

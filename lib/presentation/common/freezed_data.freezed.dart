@@ -163,12 +163,17 @@ abstract class _LoginObject implements LoginObject {
 class _$RegisterObjectTearOff {
   const _$RegisterObjectTearOff();
 
-  _RegisterObject call(String userName, String countryCode, String mobile,
-      String email, String password, String profilePicture) {
+  _RegisterObject call(
+      String userName,
+      String countryCode,
+      String mobile_number,
+      String email,
+      String password,
+      String profilePicture) {
     return _RegisterObject(
       userName,
       countryCode,
-      mobile,
+      mobile_number,
       email,
       password,
       profilePicture,
@@ -183,7 +188,7 @@ const $RegisterObject = _$RegisterObjectTearOff();
 mixin _$RegisterObject {
   String get userName => throw _privateConstructorUsedError;
   String get countryCode => throw _privateConstructorUsedError;
-  String get mobile => throw _privateConstructorUsedError;
+  String get mobile_number => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
   String get profilePicture => throw _privateConstructorUsedError;
@@ -201,7 +206,7 @@ abstract class $RegisterObjectCopyWith<$Res> {
   $Res call(
       {String userName,
       String countryCode,
-      String mobile,
+      String mobile_number,
       String email,
       String password,
       String profilePicture});
@@ -220,7 +225,7 @@ class _$RegisterObjectCopyWithImpl<$Res>
   $Res call({
     Object? userName = freezed,
     Object? countryCode = freezed,
-    Object? mobile = freezed,
+    Object? mobile_number = freezed,
     Object? email = freezed,
     Object? password = freezed,
     Object? profilePicture = freezed,
@@ -234,9 +239,9 @@ class _$RegisterObjectCopyWithImpl<$Res>
           ? _value.countryCode
           : countryCode // ignore: cast_nullable_to_non_nullable
               as String,
-      mobile: mobile == freezed
-          ? _value.mobile
-          : mobile // ignore: cast_nullable_to_non_nullable
+      mobile_number: mobile_number == freezed
+          ? _value.mobile_number
+          : mobile_number // ignore: cast_nullable_to_non_nullable
               as String,
       email: email == freezed
           ? _value.email
@@ -264,7 +269,7 @@ abstract class _$RegisterObjectCopyWith<$Res>
   $Res call(
       {String userName,
       String countryCode,
-      String mobile,
+      String mobile_number,
       String email,
       String password,
       String profilePicture});
@@ -285,7 +290,7 @@ class __$RegisterObjectCopyWithImpl<$Res>
   $Res call({
     Object? userName = freezed,
     Object? countryCode = freezed,
-    Object? mobile = freezed,
+    Object? mobile_number = freezed,
     Object? email = freezed,
     Object? password = freezed,
     Object? profilePicture = freezed,
@@ -299,9 +304,9 @@ class __$RegisterObjectCopyWithImpl<$Res>
           ? _value.countryCode
           : countryCode // ignore: cast_nullable_to_non_nullable
               as String,
-      mobile == freezed
-          ? _value.mobile
-          : mobile // ignore: cast_nullable_to_non_nullable
+      mobile_number == freezed
+          ? _value.mobile_number
+          : mobile_number // ignore: cast_nullable_to_non_nullable
               as String,
       email == freezed
           ? _value.email
@@ -322,15 +327,15 @@ class __$RegisterObjectCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_RegisterObject implements _RegisterObject {
-  _$_RegisterObject(this.userName, this.countryCode, this.mobile, this.email,
-      this.password, this.profilePicture);
+  _$_RegisterObject(this.userName, this.countryCode, this.mobile_number,
+      this.email, this.password, this.profilePicture);
 
   @override
   final String userName;
   @override
   final String countryCode;
   @override
-  final String mobile;
+  final String mobile_number;
   @override
   final String email;
   @override
@@ -340,7 +345,7 @@ class _$_RegisterObject implements _RegisterObject {
 
   @override
   String toString() {
-    return 'RegisterObject(userName: $userName, countryCode: $countryCode, mobile: $mobile, email: $email, password: $password, profilePicture: $profilePicture)';
+    return 'RegisterObject(userName: $userName, countryCode: $countryCode, mobile_number: $mobile_number, email: $email, password: $password, profilePicture: $profilePicture)';
   }
 
   @override
@@ -351,7 +356,8 @@ class _$_RegisterObject implements _RegisterObject {
             const DeepCollectionEquality().equals(other.userName, userName) &&
             const DeepCollectionEquality()
                 .equals(other.countryCode, countryCode) &&
-            const DeepCollectionEquality().equals(other.mobile, mobile) &&
+            const DeepCollectionEquality()
+                .equals(other.mobile_number, mobile_number) &&
             const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality().equals(other.password, password) &&
             const DeepCollectionEquality()
@@ -363,7 +369,7 @@ class _$_RegisterObject implements _RegisterObject {
       runtimeType,
       const DeepCollectionEquality().hash(userName),
       const DeepCollectionEquality().hash(countryCode),
-      const DeepCollectionEquality().hash(mobile),
+      const DeepCollectionEquality().hash(mobile_number),
       const DeepCollectionEquality().hash(email),
       const DeepCollectionEquality().hash(password),
       const DeepCollectionEquality().hash(profilePicture));
@@ -375,15 +381,20 @@ class _$_RegisterObject implements _RegisterObject {
 }
 
 abstract class _RegisterObject implements RegisterObject {
-  factory _RegisterObject(String userName, String countryCode, String mobile,
-      String email, String password, String profilePicture) = _$_RegisterObject;
+  factory _RegisterObject(
+      String userName,
+      String countryCode,
+      String mobile_number,
+      String email,
+      String password,
+      String profilePicture) = _$_RegisterObject;
 
   @override
   String get userName;
   @override
   String get countryCode;
   @override
-  String get mobile;
+  String get mobile_number;
   @override
   String get email;
   @override

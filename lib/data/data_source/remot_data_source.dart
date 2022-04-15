@@ -30,6 +30,7 @@ class RemotDataSourceImpilenter implements RemotDataSource {
       registerRequest.userName,
       registerRequest.email,
       registerRequest.password,
+      registerRequest.mobile_number,
       registerRequest.profilePicture,
     );
   }

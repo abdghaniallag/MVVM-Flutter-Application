@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mvvm_first_c/data/mapper/mapper.dart';
@@ -30,8 +31,9 @@ class _RegisterViewState extends State<RegisterView> {
   TextEditingController _userNameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _emailontroller = TextEditingController();
-  TextEditingController _mobileController = TextEditingController();
+  TextEditingController _mobile_numberController = TextEditingController();
   TextEditingController _profilePictureController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
   _bind() {
     _viewModel.start();
@@ -41,10 +43,18 @@ class _RegisterViewState extends State<RegisterView> {
         .addListener(() => _viewModel.setPassword(_passwordController.text));
     _emailontroller
         .addListener(() => _viewModel.setEmail(_emailontroller.text));
-    _mobileController
-        .addListener(() => _viewModel.setMobile(_mobileController.text));
+    _mobile_numberController.addListener(
+        () => _viewModel.setmobile_number(_mobile_numberController.text));
     _profilePictureController.addListener(() =>
         _viewModel.setProfilePicture(File(_profilePictureController.text)));
+    _viewModel.isUserLoggedInSuccessfullyController.stream
+        .listen((isSuccessFullyLoge) {
+//      navigate to main screen
+      SchedulerBinding.instance?.addPostFrameCallback((timeStamp) {
+        _appPreferences.setUserLoggedIn();
+        Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
+      });
+    });
   }
 
   @override
@@ -136,14 +146,15 @@ class _RegisterViewState extends State<RegisterView> {
                           Expanded(
                             flex: 3,
                             child: StreamBuilder<String?>(
-                              stream: _viewModel.outputErrorMobileValid,
+                              stream: _viewModel.outputErrormobile_numberValid,
                               builder: (context, snapshut) {
                                 return TextFormField(
                                     keyboardType: TextInputType.phone,
-                                    controller: _mobileController,
+                                    controller: _mobile_numberController,
                                     decoration: InputDecoration(
-                                      hintText: AppStrings.mobile,
-                                      label: const Text(AppStrings.mobile),
+                                      hintText: AppStrings.mobile_number,
+                                      label:
+                                          const Text(AppStrings.mobile_number),
                                       errorText: (snapshut.data),
                                     ));
                               },
@@ -193,6 +204,7 @@ class _RegisterViewState extends State<RegisterView> {
                     padding: const EdgeInsets.only(
                         left: AppPadding.p28, right: AppPadding.p28),
                     child: Container(
+                      height: AppSize.s40,
                       decoration: BoxDecoration(
                           border: Border.all(color: ColorManager.lightGray)),
                       child: GestureDetector(

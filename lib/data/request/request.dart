@@ -12,12 +12,12 @@ class ForgotPasswordRequest {
 }
 
 class RegisterRequest {
-  String mobile;
   String countryMobileCode;
   String userName;
   String email;
   String password;
+  String mobile_number;
   String profilePicture;
-  RegisterRequest(this.mobile, this.countryMobileCode, this.userName,
-      this.email, this.password, this.profilePicture);
+  RegisterRequest(this.countryMobileCode, this.userName, this.email,
+      this.password, this.mobile_number, this.profilePicture);
 }
