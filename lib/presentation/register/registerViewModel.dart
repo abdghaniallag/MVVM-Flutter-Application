@@ -213,7 +213,7 @@ class RegisterViewModel extends BaseViewModel
   @override
   Stream<String?> get outputErrormobile_numberValid =>
       outputIsmobile_numberValid.map((ismobile_numberValid) =>
-          ismobile_numberValid ? null : AppStrings.invalidmobile_number);
+          ismobile_numberValid ? null : AppStrings.invalidMobileNumber);
 
   @override
   Stream<String?> get outputErrorPasswordValid => outputIsPasswordValid.map(

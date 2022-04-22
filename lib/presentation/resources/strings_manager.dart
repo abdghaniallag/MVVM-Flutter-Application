@@ -33,8 +33,12 @@ class AppStrings {
   static const String invalidpassword = "Invalid password";
   static const String invalidUserName = "Invalid user name";
   static const String name = 'Name';
-  static const String mobile_number = "Mobile number";
-  static const String invalidmobile_number = "Invalid mobile number";
+  static const String home = 'Home';
+  static const String settings = 'Settings';
+  static const String search = 'Search';
+  static const String notifications = 'Notifications';
+  static const String mobileNumber = "Mobile number";
+  static const String invalidMobileNumber = "Invalid mobile number";
   static const String profilePicture = 'Profile picture';
   static const String invalidprofilePicture = 'Invalid profile picture';
   static const String haveAnAccount = "Already have an account? Login";

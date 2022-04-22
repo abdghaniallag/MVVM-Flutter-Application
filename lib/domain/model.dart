@@ -19,15 +19,49 @@ class Contacts {
   Contacts(this.phone, this.link, this.email);
 }
 
-class Authentication  {
+class Authentication {
   Customer? customer;
   Contacts? contacts;
-  Authentication (this.customer, this.contacts);
+  Authentication(this.customer, this.contacts);
 }
+
 class DeviceInfo {
   String name;
   String identifier;
   String version;
-  DeviceInfo(this.name,this.identifier,this.version);
-  
+  DeviceInfo(this.name, this.identifier, this.version);
+}
+
+class Service {
+  int id;
+  String title;
+  String image;
+  Service(this.id, this.title, this.image);
+}
+
+class Stores {
+  int id;
+  String title;
+  String image;
+  Stores(this.id, this.title, this.image);
+}
+
+class BannerAd {
+  int id;
+  String title;
+  String image;
+  String link;
+  BannerAd(this.id, this.title, this.image, this.link);
+}
+
+class HomeData {
+  List<Service> services;
+  List<Stores> stores;
+  List<BannerAd> banners;
+  HomeData(this.services, this.stores, this.banners);
+}
+
+class HomeObject {
+  HomeData homeData;
+  HomeObject(this.homeData);
 }

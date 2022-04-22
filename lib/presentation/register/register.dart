@@ -152,9 +152,9 @@ class _RegisterViewState extends State<RegisterView> {
                                     keyboardType: TextInputType.phone,
                                     controller: _mobile_numberController,
                                     decoration: InputDecoration(
-                                      hintText: AppStrings.mobile_number,
+                                      hintText: AppStrings.mobileNumber,
                                       label:
-                                          const Text(AppStrings.mobile_number),
+                                          const Text(AppStrings.mobileNumber),
                                       errorText: (snapshut.data),
                                     ));
                               },
