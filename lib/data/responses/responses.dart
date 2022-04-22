@@ -68,7 +68,7 @@ class ForgotPasswordResponse extends BaseResponse {
 }
 
 @JsonSerializable()
-class ServiceResponse {
+class ServiceResponse extends BaseResponse {
   @JsonKey(name: "id")
   int? id;
   @JsonKey(name: "title")
@@ -83,7 +83,7 @@ class ServiceResponse {
 }
 
 @JsonSerializable()
-class StoresResponse {
+class StoresResponse extends BaseResponse {
   @JsonKey(name: "id")
   int? id;
   @JsonKey(name: "title")
@@ -98,7 +98,7 @@ class StoresResponse {
 }
 
 @JsonSerializable()
-class BannersResponse {
+class BannersResponse extends BaseResponse {
   @JsonKey(name: "id")
   int? id;
   @JsonKey(name: "title")
@@ -115,7 +115,7 @@ class BannersResponse {
 }
 
 @JsonSerializable()
-class HomeDataResponse {
+class HomeDataResponse extends BaseResponse {
   @JsonKey(name: "services")
   List<ServiceResponse>? services;
   @JsonKey(name: "stores")
@@ -130,9 +130,9 @@ class HomeDataResponse {
 }
 
 @JsonSerializable()
-class HomeResponse {
+class HomeResponse extends BaseResponse {
   @JsonKey(name: "homeData")
-  List<HomeResponse>? homeData;
+  HomeDataResponse? homeData;
 
   HomeResponse(this.homeData);
   factory HomeResponse.fromJson(Map<String, dynamic> json) =>
