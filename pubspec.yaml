@@ -50,6 +50,7 @@ dependencies:
   country_code_picker: ^2.0.2
   image_picker: ^0.8.5
   rxdart: ^0.27.3
+  carousel_slider: ^4.1.1
   
   
 

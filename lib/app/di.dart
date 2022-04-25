@@ -9,9 +9,11 @@ import 'package:mvvm_first_c/data/network/network_info.dart';
 import 'package:mvvm_first_c/data/repository/repository_impl.dart';
 import 'package:mvvm_first_c/domain/repository.dart';
 import 'package:mvvm_first_c/domain/usecase/forgot_password_usecase.dart';
+import 'package:mvvm_first_c/domain/usecase/homePageUsecase.dart';
 import 'package:mvvm_first_c/domain/usecase/login_usecase.dart';
 import 'package:mvvm_first_c/presentation/forgot_password/forgot_password_view_model.dart';
 import 'package:mvvm_first_c/presentation/login/login_viewmodel.dart';
+import 'package:mvvm_first_c/presentation/main/home/home_page_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../domain/usecase/register_usecase.dart';
@@ -64,5 +66,13 @@ initForgotPasswordModule() {
         () => ForgotPasswordUseCase(instance()));
     instance.registerFactory<ForgotPasswordViewModel>(
         () => ForgotPasswordViewModel(instance()));
+  }
+}
+
+initHomeModule() {
+  if (!GetIt.I.isRegistered<HomeUseCase>()) {
+    instance.registerFactory<HomeUseCase>(() => HomeUseCase(instance()));
+    instance.registerFactory<HomePageViewModel>(
+        () => HomePageViewModel(instance()));
   }
 }

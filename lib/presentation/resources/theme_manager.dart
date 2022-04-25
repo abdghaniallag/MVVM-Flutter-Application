@@ -48,6 +48,8 @@ ThemeData getAplicationTheme() {
           color: ColorManager.darkGray, fontSize: FontSize.s16),
       headline2:
           getRegularStyle(color: ColorManager.white, fontSize: FontSize.s16),
+      headline3:
+          getBoldStyle(color: ColorManager.primary, fontSize: FontSize.s16),
       subtitle1:
           getMediumStyle(color: ColorManager.lightGray, fontSize: FontSize.s14),
       subtitle2:
