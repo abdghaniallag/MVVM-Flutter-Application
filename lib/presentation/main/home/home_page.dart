@@ -4,6 +4,7 @@ import 'package:mvvm_first_c/app/di.dart';
 import 'package:mvvm_first_c/domain/model.dart';
 import 'package:mvvm_first_c/presentation/main/home/home_page_viewmodel.dart';
 import 'package:mvvm_first_c/presentation/resources/color_manager.dart';
+import 'package:mvvm_first_c/presentation/resources/routes_manager.dart';
 import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
 import 'package:mvvm_first_c/presentation/resources/values_manager.dart';
 import 'package:mvvm_first_c/presentation/state_renderer/state_renderer_implimenter.dart';
@@ -17,6 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   HomePageViewModel _viewModel = instance<HomePageViewModel>();
+
   @override
   void initState() {
     _bind();
@@ -31,34 +33,29 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
-          child: StreamBuilder<FlowState>(
-        stream: _viewModel.outputState,
-        builder: (context, snapshot) {
-          return snapshot.data?.getScreenWidget(context, _getContentWidget(),
-                  () {
-                _viewModel.start();
-              }) ??
-              Container();
-        },
-      )),
+        child: StreamBuilder<FlowState>(
+          stream: _viewModel.outputState,
+          builder: (context, snapshot) {
+            return snapshot.data?.getScreenWidget(context, _getContentWidgets(),
+                    () {
+                  _viewModel.start();
+                }) ??
+                Container();
+          },
+        ),
+      ),
     );
   }
 
-  @override
-  void dispose() {
-    _viewModel.dispose();
-    super.dispose();
-  }
-
-  Widget _getContentWidget() {
+  Widget _getContentWidgets() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _getBannersCarousel(),
         _getSection(AppStrings.services),
-        //  _getServiceCarousel(),
+        _getServices(),
         _getSection(AppStrings.stories),
-        //   _getStoriesCarousel(),
+        _getStores()
       ],
     );
   }
@@ -66,23 +63,26 @@ class _HomePageState extends State<HomePage> {
   Widget _getSection(String title) {
     return Padding(
       padding: const EdgeInsets.only(
+          top: AppPadding.p12,
           left: AppPadding.p12,
           right: AppPadding.p12,
-          top: AppPadding.p12,
           bottom: AppPadding.p2),
-      child: Text(title, style: Theme.of(context).textTheme.headline2),
+      child: Text(
+        title,
+        style: Theme.of(context).textTheme.headline3,
+      ),
     );
   }
 
   Widget _getBannersCarousel() {
     return StreamBuilder<List<BannerAd>>(
-        stream: _viewModel.bannersOutputs,
+        stream: _viewModel.outputBanners,
         builder: (context, snapshot) {
-          return _getBanners(snapshot.data);
+          return _getBanner(snapshot.data);
         });
   }
 
-  Widget _getBanners(List<BannerAd>? banners) {
+  Widget _getBanner(List<BannerAd>? banners) {
     if (banners != null) {
       return CarouselSlider(
           items: banners
@@ -91,10 +91,9 @@ class _HomePageState extends State<HomePage> {
                     child: Card(
                       elevation: AppSize.s1_5,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(AppSize.s12),
-                        side: BorderSide(
-                            color: ColorManager.white, width: AppSize.s1_5),
-                      ),
+                          borderRadius: BorderRadius.circular(AppSize.s12),
+                          side: BorderSide(
+                              color: ColorManager.white, width: AppSize.s1_5)),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(AppSize.s12),
                         child: Image.network(
@@ -106,12 +105,122 @@ class _HomePageState extends State<HomePage> {
                   ))
               .toList(),
           options: CarouselOptions(
-              height: AppSize.s140,
+              height: AppSize.s180,
+              autoPlay: true,
               enableInfiniteScroll: true,
-              enlargeCenterPage: true,
-              autoPlay: true));
+              enlargeCenterPage: true));
     } else {
       return Container();
     }
+  }
+
+  Widget _getServices() {
+    return StreamBuilder<List<Service>>(
+        stream: _viewModel.outputServices,
+        builder: (context, snapshot) {
+          return _getServicesWidget(snapshot.data);
+        });
+  }
+
+  Widget _getServicesWidget(List<Service>? services) {
+    if (services != null) {
+      return Padding(
+        padding:
+            const EdgeInsets.only(left: AppPadding.p12, right: AppPadding.p12),
+        child: Container(
+          height: AppSize.s140,
+          margin: const EdgeInsets.symmetric(vertical: AppMargin.m12),
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: services
+                .map((service) => Card(
+                      elevation: AppSize.s4,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(AppSize.s12),
+                          side: BorderSide(
+                              color: ColorManager.white, width: AppSize.s1_5)),
+                      child: Column(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(AppSize.s12),
+                            child: Image.network(
+                              service.image,
+                              fit: BoxFit.cover,
+                              width: AppSize.s100,
+                              height: AppSize.s100,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: AppPadding.p8),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                service.title,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ))
+                .toList(),
+          ),
+        ),
+      );
+    } else {
+      return Container();
+    }
+  }
+
+  Widget _getStores() {
+    return StreamBuilder<List<Stores>>(
+        stream: _viewModel.outputStores,
+        builder: (context, snapshot) {
+          return _getStoresWidget(snapshot.data);
+        });
+  }
+
+  Widget _getStoresWidget(List<Stores>? stores) {
+    if (stores != null) {
+      return Padding(
+        padding: const EdgeInsets.only(
+            left: AppPadding.p12, right: AppPadding.p12, top: AppPadding.p12),
+        child: Flex(
+          direction: Axis.vertical,
+          children: [
+            GridView.count(
+              crossAxisSpacing: AppSize.s8,
+              mainAxisSpacing: AppSize.s8,
+              physics: const ScrollPhysics(),
+              shrinkWrap: true,
+              crossAxisCount: 2,
+              children: List.generate(stores.length, (index) {
+                return InkWell(
+                  onTap: () {
+                    // navigate to store details screen
+                    Navigator.of(context).pushNamed(Routes.storeDetailsRoute);
+                  },
+                  child: Card(
+                    elevation: AppSize.s4,
+                    child: Image.network(
+                      stores[index].image,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                );
+              }),
+            )
+          ],
+        ),
+      );
+    } else {
+      return Container();
+    }
+  }
+
+  @override
+  void dispose() {
+    _viewModel.dispose();
+    super.dispose();
   }
 }

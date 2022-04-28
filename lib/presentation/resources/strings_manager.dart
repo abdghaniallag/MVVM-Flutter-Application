@@ -35,7 +35,7 @@ class AppStrings {
   static const String name = 'Name';
   static const String home = 'Home';
   static const String services = 'Service';
-  static const String stories = 'Stories';
+  static const String stories = 'Stores';
   static const String settings = 'Settings';
   static const String search = 'Search';
   static const String notifications = 'Notifications';
