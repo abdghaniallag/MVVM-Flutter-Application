@@ -48,16 +48,20 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _getContentWidgets() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _getBannersCarousel(),
-        _getSection(AppStrings.services),
-        _getServices(),
-        _getSection(AppStrings.stories),
-        _getStores()
-      ],
-    );
+    return StreamBuilder<HomeData>(
+        stream: _viewModel.outputHome,
+        builder: (context, snapshot) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _getBannersCarousel(snapshot.data?.banners),
+              _getSection(AppStrings.services),
+              _getServices(snapshot.data?.services),
+              _getSection(AppStrings.stories),
+              _getStores(snapshot.data?.stores)
+            ],
+          );
+        });
   }
 
   Widget _getSection(String title) {
@@ -74,12 +78,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _getBannersCarousel() {
-    return StreamBuilder<List<BannerAd>>(
-        stream: _viewModel.outputBanners,
-        builder: (context, snapshot) {
-          return _getBanner(snapshot.data);
-        });
+  Widget _getBannersCarousel(List<BannerAd>? banners) {
+    if (banners == null) {
+      return Column();
+    } else {
+      return _getBanner(banners);
+    }
   }
 
   Widget _getBanner(List<BannerAd>? banners) {
@@ -114,12 +118,12 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Widget _getServices() {
-    return StreamBuilder<List<Service>>(
-        stream: _viewModel.outputServices,
-        builder: (context, snapshot) {
-          return _getServicesWidget(snapshot.data);
-        });
+  Widget _getServices(List<Service>? services) {
+    if (services == null) {
+      return Column();
+    } else {
+      return _getServicesWidget(services);
+    }
   }
 
   Widget _getServicesWidget(List<Service>? services) {
@@ -172,12 +176,12 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Widget _getStores() {
-    return StreamBuilder<List<Stores>>(
-        stream: _viewModel.outputStores,
-        builder: (context, snapshot) {
-          return _getStoresWidget(snapshot.data);
-        });
+  Widget _getStores(List<Stores>? stores) {
+    if (stores == null) {
+      return Column();
+    } else {
+      return _getStoresWidget(stores);
+    }
   }
 
   Widget _getStoresWidget(List<Stores>? stores) {

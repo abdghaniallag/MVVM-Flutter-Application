@@ -1,0 +1,54 @@
+[
+
+    { "type":"Sain","homeX":"50","homeY":"50","family":"A","compte":"1500",
+      "targets":[{"targetX":"50","targetY":"100"},{"targetX":"200","targetY":"500"},{"targetX":"130","targetY":"90"},{"targetX":"600","targetY":"650"},{"targetX":"90","targetY":"200"},{"targetX":"450","targetY":"301"}]
+    
+    },
+    { "type":"Sain","homeX":"520","homeY":"540","family":"A","compte":"1757",
+      "targets":[{"targetX":"211","targetY":"42"},{"targetX":"22","targetY":"66"},{"targetX":"52","targetY":"525"},{"targetX":"195","targetY":"99"},{"targetX":"88","targetY":"195"},{"targetX":"222","targetY":"632"}]
+    
+    },
+    { "type":"Sain","homeX":"500","homeY":"600","family":"C","compte":"1000",
+      "targets":[{"targetX":"111","targetY":"212"},{"targetX":"19","targetY":"566"},{"targetX":"100","targetY":"290"},{"targetX":"200","targetY":"650"},{"targetX":"25","targetY":"22"},{"targetX":"55","targetY":"52"}]
+    
+    },
+    { "type":"Sain","homeX":"306","homeY":"104","family":"D","compte":"1200",
+      "targets":[{"targetX":"53","targetY":"111"},{"targetX":"330","targetY":"653"},{"targetX":"88","targetY":"99"},{"targetX":"29","targetY":"60"},{"targetX":"99","targetY":"99"},{"targetX":"436","targetY":"167"}]
+    
+    },
+    
+    { "type":"malade","homeX":"77","homeY":"45","family":"D","compte":"3000",
+      "targets":[{"targetX":"55","targetY":"320"},{"targetX":"20","targetY":"400"},{"targetX":"570","targetY":"300"},{"targetX":"601","targetY":"106"},{"targetX":"122","targetY":"532"},{"targetX":"50","targetY":"355"}]
+    
+    },
+    { "type":"malade","homeX":"224","homeY":"666","family":"C","compte":"500",
+      "targets":[{"targetX":"111","targetY":"342"},{"targetX":"672","targetY":"442"},{"targetX":"62","targetY":"99"},{"targetX":"532","targetY":"650"},{"targetX":"99","targetY":"88"},{"targetX":"422","targetY":"332"}]
+    
+    },
+    { "type":"malade","homeX":"88","homeY":"620","family":"A","compte":"1757",
+      "targets":[{"targetX":"599","targetY":"62"},{"targetX":"245","targetY":"526"},{"targetX":"111","targetY":"27"},{"targetX":"52","targetY":"652"},{"targetX":"221","targetY":"112"},{"targetX":"342","targetY":"442"}]
+    
+    },
+    { "type":"malade","homeX":"100","homeY":"290","family":"B","compte":"500",
+      "targets":[{"targetX":"50","targetY":"100"},{"targetX":"200","targetY":"500"},{"targetX":"130","targetY":"90"},{"targetX":"600","targetY":"650"},{"targetX":"90","targetY":"200"},{"targetX":"450","targetY":"301"}]
+    
+    },
+    { "type":"malade","homeX":"300","homeY":"500","family":"D","compte":"600",
+      "targets":[{"targetX":"342","targetY":"21"},{"targetX":"111","targetY":"32"},{"targetX":"33","targetY":"122"},{"targetX":"600","targetY":"88"},{"targetX":"90","targetY":"563"},{"targetX":"553","targetY":"21"}]
+    
+    },
+    { "type":"malade","homeX":"67","homeY":"540","family":"B","compte":"5000",
+      "targets":[{"targetX":"211","targetY":"42"},{"targetX":"22","targetY":"66"},{"targetX":"52","targetY":"525"},{"targetX":"195","targetY":"99"},{"targetX":"88","targetY":"195"},{"targetX":"222","targetY":"632"}]
+    
+    },
+    { "type":"malade","homeX":"60","homeY":"600","family":"A","compte":"2100",
+      "targets":[{"targetX":"111","targetY":"670"},{"targetX":"19","targetY":"566"},{"targetX":"100","targetY":"290"},{"targetX":"200","targetY":"650"},{"targetX":"25","targetY":"22"},{"targetX":"55","targetY":"52"}]
+    
+    },
+    { "type":"malade","homeX":"341","homeY":"94","family":"C","compte":"325",
+      "targets":[{"targetX":"53","targetY":"111"},{"targetX":"330","targetY":"653"},{"targetX":"88","targetY":"99"},{"targetX":"29","targetY":"60"},{"targetX":"99","targetY":"99"},{"targetX":"436","targetY":"167"}]
+    
+    }
+    
+    
+]
