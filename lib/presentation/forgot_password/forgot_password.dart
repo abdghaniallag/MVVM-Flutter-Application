@@ -12,20 +12,21 @@ class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({Key? key}) : super(key: key);
 
   @override
-  _ForgotPasswordViewState createState() =>_ForgotPasswordViewState();
+  _ForgotPasswordViewState createState() => _ForgotPasswordViewState();
 }
+
 class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailTextEditingController =
-  TextEditingController();
+      TextEditingController();
 
   final ForgotPasswordViewModel _viewModel =
-  instance<ForgotPasswordViewModel>();
+      instance<ForgotPasswordViewModel>();
 
   bind() {
     _viewModel.start();
     _emailTextEditingController.addListener(
-            () => _viewModel.setEmail(_emailTextEditingController.text));
+        () => _viewModel.setEmail(_emailTextEditingController.text));
   }
 
   @override
@@ -40,7 +41,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
       body: StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
         builder: (context, snapshot) {
-          return snapshot.data?.getScreenWidget(context,_getContentWidget(),
+          return snapshot.data?.getScreenWidget(context, _getContentWidget(),
                   () {
                 _viewModel.forgotPassword();
               }) ??
@@ -53,7 +54,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   Widget _getContentWidget() {
     return Container(
       constraints: const BoxConstraints.expand(),
-      padding:   EdgeInsets.only(top: AppPadding.p100),
+      padding: const EdgeInsets.only(top: AppPadding.p100),
       color: ColorManager.white,
       child: SingleChildScrollView(
         child: Form(
