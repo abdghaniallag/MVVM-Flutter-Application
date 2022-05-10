@@ -9,9 +9,11 @@ class ForgotPasswordViewModel extends BaseViewModel
     with ForgotPasswordViewModelInputs, ForgotPasswordViewModelOutputs {
   final StreamController _emailStreamController =
       StreamController<String>.broadcast();
-  final StreamController _isAllInputValidStreamController =
-      StreamController<void>.broadcast();
-  final ForgotPasswordUseCase _forgotPasswordUseCase;
+ 
+  StreamController _isAllInputValidStreamController =
+      StreamController<bool>.broadcast();
+  ForgotPasswordUseCase _forgotPasswordUseCase;
+ 
   ForgotPasswordViewModel(this._forgotPasswordUseCase);
   var email = "";
   @override
@@ -37,7 +39,9 @@ class ForgotPasswordViewModel extends BaseViewModel
 
   @override
   setEmail(String email) {
-    inputEmail.add(email);
+ 
+    InputEmail.add(email);
+ 
     this.email = email;
     _validate();
   }
@@ -49,16 +53,18 @@ class ForgotPasswordViewModel extends BaseViewModel
     (await _forgotPasswordUseCase.execute(email)).fold((failure) {
       inputState.add(
           ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
-    }, (authObject) {
-      inputState.add(ContentState());
+    }, (supportMessage) {
+      inputState.add(SuccessState(supportMessage));
     });
   }
 
-  @override
-  Sink get inputIsAllInputValid => _isAllInputValidStreamController.sink;
+  @override 
+  Sink get InputIsAllInputValid => _isAllInputValidStreamController.sink;
 
   _validate() {
-    inputIsAllInputValid.add(null);
+    InputIsAllInputValid.add(null);
+
+ 
   }
 
   @override

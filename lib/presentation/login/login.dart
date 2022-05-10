@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_final_fields
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -152,7 +151,7 @@ class _LoginViewState extends State<LoginView> {
                                   context, Routes.forgotPasswordRoute);
                             },
                             child: Text(
-                              AppStrings.ForgotPassword,
+                              AppStrings.forgotPassword,
                               style: Theme.of(context).textTheme.subtitle2,
                             )),
                         TextButton(
