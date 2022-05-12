@@ -18,12 +18,15 @@ abstract class AppServiceClient {
   Future<ForgotPasswordResponse> forgotPassword(
     @Field("email") String email,
   );
+  @GET('/home')
+  Future<HomeResponse> getHome();
   @POST('/costumers/register')
   Future<AuthenticationRespons> register(
     @Field("country_mobile_code") String countryMobileCode,
     @Field("user_name") String userName,
     @Field("email") String email,
     @Field("password") String password,
+    @Field("mobile_number") String mobile_number,
     @Field("profile_picture") String profilePicture,
   );
 }

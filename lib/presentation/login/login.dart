@@ -20,6 +20,7 @@ class LoginView extends StatefulWidget {
   _LoginViewState createState() => _LoginViewState();
 }
 
+//
 class _LoginViewState extends State<LoginView> {
   LoginViewModel _viewModel = instance<LoginViewModel>();
   AppPreferences _appPreferences = instance<AppPreferences>();
@@ -80,7 +81,7 @@ class _LoginViewState extends State<LoginView> {
                     padding: const EdgeInsets.only(
                         left: AppPadding.p28, right: AppPadding.p28),
                     child: StreamBuilder<bool>(
-                      stream: _viewModel.outputIsUserNameValid,
+                      stream: _viewModel.outputIsUserUserNameValid,
                       builder: (context, snapshut) {
                         return TextFormField(
                           keyboardType: TextInputType.emailAddress,
@@ -100,7 +101,7 @@ class _LoginViewState extends State<LoginView> {
                     padding: const EdgeInsets.only(
                         left: AppPadding.p28, right: AppPadding.p28),
                     child: StreamBuilder<bool>(
-                      stream: _viewModel.outputIspasswordValid,
+                      stream: _viewModel.outputIsPasswordValid,
                       builder: (context, snapshut) {
                         return TextFormField(
                           keyboardType: TextInputType.visiblePassword,

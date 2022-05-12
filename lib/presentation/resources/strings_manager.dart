@@ -29,5 +29,21 @@ class AppStrings {
   static const String success = 'success';
 
   static const String emailHint = 'Email';
-  static const String invalidEmail = "Invalid Email";
+  static const String invalidEmail = "Invalid email";
+  static const String invalidpassword = "Invalid password";
+  static const String invalidUserName = "Invalid user name";
+  static const String name = 'Name';
+  static const String home = 'Home';
+  static const String services = 'Service';
+  static const String stories = 'Stores';
+  static const String settings = 'Settings';
+  static const String search = 'Search';
+  static const String notifications = 'Notifications';
+  static const String mobileNumber = "Mobile number";
+  static const String invalidMobileNumber = "Invalid mobile number";
+  static const String profilePicture = 'Profile picture';
+  static const String invalidprofilePicture = 'Invalid profile picture';
+  static const String haveAnAccount = "Already have an account? Login";
+  static const String pictureGallery = 'Picture from gallery';
+  static const String pictureCamera = 'Picture from camera';
 }

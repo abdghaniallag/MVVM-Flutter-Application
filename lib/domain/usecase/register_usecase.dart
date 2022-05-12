@@ -17,17 +17,19 @@ class RegisterUseCase
       input.userName,
       input.email,
       input.password,
+      input.mobile_number,
       input.profilePicture,
     ));
   }
 }
 
 class RegisterUseCaseInupt {
+  String mobile_number;
   String countryMobileCode;
   String userName;
   String email;
   String password;
   String profilePicture;
-  RegisterUseCaseInupt(this.countryMobileCode, this.userName, this.email,
-      this.password, this.profilePicture);
+  RegisterUseCaseInupt(this.mobile_number, this.countryMobileCode,
+      this.userName, this.email, this.password, this.profilePicture);
 }

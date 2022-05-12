@@ -16,7 +16,8 @@ class RegisterRequest {
   String userName;
   String email;
   String password;
+  String mobile_number;
   String profilePicture;
   RegisterRequest(this.countryMobileCode, this.userName, this.email,
-      this.password, this.profilePicture);
+      this.password, this.mobile_number, this.profilePicture);
 }

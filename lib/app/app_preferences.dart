@@ -13,6 +13,7 @@ class AppPreferences {
     if (language != null && language.isNotEmpty) {
       return language;
     } else {
+      //
       return LanguageType.ENGLISH.getValue();
     }
   }

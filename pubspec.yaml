@@ -47,6 +47,11 @@ dependencies:
   freezed: ^1.1.0
   get_it: ^7.2.0
   lottie: ^1.2.1
+  country_code_picker: ^2.0.2
+  image_picker: ^0.8.5
+  rxdart: ^0.27.3
+  carousel_slider: ^4.1.1
+  
   
 
 dev_dependencies:
@@ -78,9 +83,11 @@ flutter:
      - assets/images/on_boarding_logo3.svg
      - assets/images/on_boarding_logo4.svg
      - assets/images/solid_circle_ic.svg
+     - assets/images/logo_ic.svg
      - assets/images/empty_circle_ic.svg
      - assets/images/left_arrow_ic.svg
      - assets/images/right_arrow_ic.svg
+     - assets/images/camera.svg
      - assets/json/loading.json
      - assets/json/error.json
      - assets/json/not_found.json

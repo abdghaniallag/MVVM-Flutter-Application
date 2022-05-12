@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:mvvm_first_c/data/data_source/local_data_source.dart';
 import 'package:mvvm_first_c/data/data_source/remot_data_source.dart';
 import 'package:mvvm_first_c/data/mapper/mapper.dart';
 import 'package:mvvm_first_c/data/network/error_handler.dart';
@@ -12,8 +13,10 @@ import 'package:mvvm_first_c/domain/repository.dart';
 
 class RepositoryImpl extends Repository {
   RemotDataSource _remoteDataSource;
+  LocalDataSource _localDataSource;
   NetworkInfo _networkInfo;
-  RepositoryImpl(this._remoteDataSource, this._networkInfo);
+  RepositoryImpl(
+      this._remoteDataSource, this._networkInfo, this._localDataSource);
   @override
   Future<Either<Failure, Authentication>> login(
       //its safe to call the API
@@ -93,6 +96,42 @@ class RepositoryImpl extends Repository {
     } else {
       // return connection error
       return Left((DataSource.NO_INTERNET_CONNECTION.getFailure()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, HomeObject>> getHome() async {
+    try {
+      // get data from cache
+      final response = await _localDataSource.getHomeData();
+
+      return Right(response.toDomain());
+    } catch (e) {
+      if (await _networkInfo.isConnected) {
+        try {
+          // its safe to call the API
+          final response = await _remoteDataSource.getHome();
+
+          if (response.status == ApiInternalStatus.SUCCESS) // success
+          {
+            // return data (success)
+            // return right
+            // save data to cache
+            _localDataSource.saveHomeData(response);
+            return Right(response.toDomain());
+          } else {
+            // return biz logic error
+            // return left
+            return Left(Failure(response.status ?? ApiInternalStatus.FAILURE,
+                response.message ?? ResponseMessage.DEFAULT));
+          }
+        } catch (error) {
+          return (Left(ErrorHandler.handle(error).failure));
+        }
+      } else {
+        // return connection error
+        return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+      }
     }
   }
 }
