@@ -47,5 +47,9 @@ class AppStrings {
   static const String invalidprofilePicture = 'Invalid profile picture';
   static const String haveAnAccount = "Already have an account? Login";
   static const String pictureGallery = 'Picture from gallery';
+  static const String changeLanguage = 'Change Language';
+  static const String contactUs = 'Contact Us';
+  static const String inviteFriends = 'Invite Your Friends';
+  static const String logOut = 'LogOut';
   static const String pictureCamera = 'Picture from camera';
 }
