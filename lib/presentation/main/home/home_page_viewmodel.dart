@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:ffi';
 import 'package:mvvm_first_c/domain/model.dart';
-import 'package:mvvm_first_c/domain/usecase/homePageUsecase.dart';
+import 'package:mvvm_first_c/domain/usecase/home_page_usecase.dart';
 import 'package:mvvm_first_c/presentation/base/base.dart';
 import 'package:mvvm_first_c/presentation/state_renderer/state_renderer.dart';
 import 'package:mvvm_first_c/presentation/state_renderer/state_renderer_implimenter.dart';

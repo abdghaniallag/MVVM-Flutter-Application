@@ -34,6 +34,8 @@ class AppStrings {
   static const String invalidUserName = "Invalid user name";
   static const String name = 'Name';
   static const String home = 'Home';
+  static const String detail = 'Details';
+  static const String aboutStore = 'About Store';
   static const String services = 'Service';
   static const String stories = 'Stores';
   static const String settings = 'Settings';

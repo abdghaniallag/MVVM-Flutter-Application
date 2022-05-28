@@ -6,6 +6,7 @@ abstract class RemotDataSource {
   Future<AuthenticationRespons> login(LoginRequest loginRequest);
   Future<ForgotPasswordResponse> forgotPassword(String email);
   Future<HomeResponse> getHome();
+  Future<StoreDetailsResponse> getStoreDetails();
   Future<AuthenticationRespons> register(RegisterRequest registerRequest);
 }
 
@@ -39,5 +40,10 @@ class RemotDataSourceImpilenter implements RemotDataSource {
       registerRequest.mobile_number,
       registerRequest.profilePicture,
     );
+  }
+
+  @override
+  Future<StoreDetailsResponse> getStoreDetails() async {
+    return await _appServiceClient.getStoreDetails();
   }
 }

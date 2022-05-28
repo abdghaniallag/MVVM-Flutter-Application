@@ -69,6 +69,22 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
+  Future<StoreDetailsResponse> getStoreDetails() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<StoreDetailsResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/storeDetails/1',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = StoreDetailsResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<AuthenticationRespons> register(countryMobileCode, userName, email,
       password, mobile_number, profilePicture) async {
     const _extra = <String, dynamic>{};

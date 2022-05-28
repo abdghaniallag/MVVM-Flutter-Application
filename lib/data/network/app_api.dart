@@ -20,6 +20,10 @@ abstract class AppServiceClient {
   );
   @GET('/home')
   Future<HomeResponse> getHome();
+
+  @GET('/storeDetails/1')
+  Future<StoreDetailsResponse> getStoreDetails();
+
   @POST('/costumers/register')
   Future<AuthenticationRespons> register(
     @Field("country_mobile_code") String countryMobileCode,

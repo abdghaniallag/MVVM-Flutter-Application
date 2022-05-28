@@ -176,3 +176,29 @@ Map<String, dynamic> _$HomeResponseToJson(HomeResponse instance) =>
       'message': instance.message,
       'data': instance.homeData,
     };
+
+StoreDetailsResponse _$StoreDetailsResponseFromJson(
+        Map<String, dynamic> json) =>
+    StoreDetailsResponse(
+      json['image'] as String?,
+      json['id'] as int?,
+      json['title'] as String?,
+      json['detail'] as String?,
+      json['services'] as String?,
+      json['about'] as String?,
+    )
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$StoreDetailsResponseToJson(
+        StoreDetailsResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'image': instance.image,
+      'id': instance.id,
+      'detail': instance.detail,
+      'title': instance.title,
+      'services': instance.services,
+      'about': instance.about,
+    };

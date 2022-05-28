@@ -6,6 +6,7 @@ import 'package:mvvm_first_c/presentation/onBoarding/onBording.dart';
 import 'package:mvvm_first_c/presentation/register/register.dart';
 import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
 import 'package:mvvm_first_c/presentation/splash/splash.dart';
+import 'package:mvvm_first_c/presentation/storeDetails/storeDetails.dart';
 
 import '../forgot_password/forgot_password.dart';
 
@@ -38,6 +39,9 @@ class RouteGenerator {
       case Routes.mainRoute:
         initHomeModule();
         return MaterialPageRoute(builder: (_) => MainView());
+      case Routes.storeDetailsRoute:
+        initStoresModule();
+        return MaterialPageRoute(builder: (_) => StoreDetailsView());
       default:
         return UnDefindeRoute();
     }
