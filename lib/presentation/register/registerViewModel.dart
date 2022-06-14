@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:mvvm_first_c/app/functions.dart';
 import 'package:mvvm_first_c/presentation/base/base.dart';
 import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
@@ -203,21 +204,23 @@ class RegisterViewModel extends BaseViewModel
   }
 
   @override
-  Stream<String?> get outputErrorUserNameValid => outputIsUserNameValid.map(
-      (isUserNameValid) => isUserNameValid ? null : AppStrings.invalidUserName);
+  Stream<String?> get outputErrorUserNameValid =>
+      outputIsUserNameValid.map((isUserNameValid) =>
+          isUserNameValid ? null : AppStrings.invalidUserName.tr());
 
   @override
-  Stream<String?> get outputErrorEmailValid => outputIsEmailValid
-      .map((isEmailValid) => isEmailValid ? null : AppStrings.invalidEmail);
+  Stream<String?> get outputErrorEmailValid => outputIsEmailValid.map(
+      (isEmailValid) => isEmailValid ? null : AppStrings.invalidEmail.tr());
 
   @override
   Stream<String?> get outputErrormobile_numberValid =>
       outputIsmobile_numberValid.map((ismobile_numberValid) =>
-          ismobile_numberValid ? null : AppStrings.invalidMobileNumber);
+          ismobile_numberValid ? null : AppStrings.invalidMobileNumber.tr());
 
   @override
-  Stream<String?> get outputErrorPasswordValid => outputIsPasswordValid.map(
-      (isPasswordValid) => isPasswordValid ? null : AppStrings.invalidpassword);
+  Stream<String?> get outputErrorPasswordValid =>
+      outputIsPasswordValid.map((isPasswordValid) =>
+          isPasswordValid ? null : AppStrings.invalidpassword.tr());
 
   @override
   setCountryCode(String countryCode) {

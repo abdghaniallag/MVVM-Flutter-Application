@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mvvm_first_c/data/mapper/mapper.dart';
 import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
@@ -13,7 +14,7 @@ class LoadingState extends FlowState {
   StateRendererType stateRendererType;
   String message;
   LoadingState({required this.stateRendererType, String? message})
-      : message = message ?? AppStrings.loading;
+      : message = message ?? AppStrings.loading.tr();
   @override
   String getMessage() => message;
 
@@ -117,7 +118,7 @@ extension FlowStateExtension on FlowState {
           dismissDialog(context);
           _showPopup(
               context, StateRendererType.POPUP_SUCCESS_STATE, getMessage(),
-              title: AppStrings.success);
+              title: AppStrings.success.tr());
           return contentScreenWidget;
         }
       default:

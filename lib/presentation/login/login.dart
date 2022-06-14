@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_final_fields
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -87,11 +88,11 @@ class _LoginViewState extends State<LoginView> {
                           keyboardType: TextInputType.emailAddress,
                           controller: _userNameController,
                           decoration: InputDecoration(
-                              hintText: AppStrings.userName,
-                              label: const Text(AppStrings.userName),
+                              hintText: AppStrings.userName.tr(),
+                              label: Text(AppStrings.userName.tr()),
                               errorText: (snapshut.data ?? true)
                                   ? null
-                                  : AppStrings.userNameError),
+                                  : AppStrings.userNameError.tr()),
                         );
                       },
                     ),
@@ -107,11 +108,11 @@ class _LoginViewState extends State<LoginView> {
                           keyboardType: TextInputType.visiblePassword,
                           controller: _passwordController,
                           decoration: InputDecoration(
-                              hintText: AppStrings.password,
-                              label: const Text(AppStrings.password),
+                              hintText: AppStrings.password.tr(),
+                              label: const Text(AppStrings.password).tr(),
                               errorText: (snapshut.data ?? true)
                                   ? null
-                                  : AppStrings.passwordError),
+                                  : AppStrings.passwordError.tr()),
                         );
                       },
                     ),
@@ -134,7 +135,7 @@ class _LoginViewState extends State<LoginView> {
                                         _viewModel.login();
                                       }
                                     : null,
-                                child: const Text(AppStrings.login),
+                                child: Text(AppStrings.login.tr()),
                               ));
                         },
                       )),
@@ -152,7 +153,7 @@ class _LoginViewState extends State<LoginView> {
                                   context, Routes.forgotPasswordRoute);
                             },
                             child: Text(
-                              AppStrings.forgotPassword,
+                              AppStrings.forgotPassword.tr(),
                               style: Theme.of(context).textTheme.subtitle2,
                             )),
                         TextButton(
@@ -161,7 +162,7 @@ class _LoginViewState extends State<LoginView> {
                                   context, Routes.registerRoute);
                             },
                             child: Text(
-                              AppStrings.register,
+                              AppStrings.register.tr(),
                               style: Theme.of(context).textTheme.subtitle2,
                             ))
                       ],

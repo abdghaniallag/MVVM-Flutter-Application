@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mvvm_first_c/app/di.dart';
 import 'package:mvvm_first_c/data/mapper/mapper.dart';
@@ -69,7 +70,7 @@ class _StoreDetailsViewState extends State<StoreDetailsView> {
               left: AppPadding.p16,
               right: AppPadding.p16,
             ),
-            child: Text(AppStrings.detail,
+            child: Text(AppStrings.detail.tr(),
                 style: Theme.of(context).textTheme.headline3),
           ),
           _getStoreDetailWidget(storeDetail?.detail),
@@ -86,7 +87,7 @@ class _StoreDetailsViewState extends State<StoreDetailsView> {
               left: AppPadding.p16,
               right: AppPadding.p16,
             ),
-            child: Text(AppStrings.aboutStore,
+            child: Text(AppStrings.aboutStore.tr(),
                 style: Theme.of(context).textTheme.headline3),
           ),
           _getStoreAboutWidget(storeDetail?.about)

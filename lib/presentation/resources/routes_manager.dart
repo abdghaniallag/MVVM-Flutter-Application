@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mvvm_first_c/app/di.dart';
 import 'package:mvvm_first_c/presentation/login/login.dart';
@@ -51,9 +52,9 @@ class RouteGenerator {
     return MaterialPageRoute(
         builder: (_) => Scaffold(
               appBar: AppBar(
-                title: Text(AppStrings.noRoutFound),
+                title: Text(AppStrings.noRouteFound.tr()),
               ),
-              body: Center(child: Text(AppStrings.noRoutFound)),
+              body: Center(child: Text(AppStrings.noRouteFound.tr())),
             ));
   }
 }

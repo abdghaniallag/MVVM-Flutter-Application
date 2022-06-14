@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mvvm_first_c/app/di.dart';
@@ -24,25 +25,25 @@ class _SettingPageState extends State<SettingPage> {
       padding: const EdgeInsets.all(AppPadding.p8),
       children: [
         ListTile(
-          title: const Text(AppStrings.changeLanguage),
+          title: Text(AppStrings.changeLanguage.tr()),
           leading: const Icon(Icons.language_rounded),
           trailing: const Icon(Icons.arrow_forward_rounded),
           onTap: () {},
         ),
         ListTile(
-          title: const Text(AppStrings.contactUs),
+          title: Text(AppStrings.contactUs.tr()),
           leading: const Icon(Icons.contact_page_rounded),
           trailing: const Icon(Icons.arrow_forward_rounded),
           onTap: () {},
         ),
         ListTile(
-          title: const Text(AppStrings.inviteFriends),
+          title: Text(AppStrings.inviteFriends.tr()),
           leading: const Icon(Icons.insert_invitation_rounded),
           trailing: const Icon(Icons.arrow_forward_rounded),
           onTap: () {},
         ),
         ListTile(
-          title: const Text(AppStrings.logOut),
+          title: const Text(AppStrings.logOut).tr(),
           leading: const Icon(Icons.logout_rounded),
           trailing: const Icon(Icons.arrow_forward_rounded),
           onTap: () {

@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -21,11 +22,10 @@ class OnBoardingView extends StatefulWidget {
 }
 
 class _OnBoardingViewState extends State<OnBoardingView> {
-
   PageController _pageController = PageController(initialPage: 0);
   OnboardingViewModel _viewModel = OnboardingViewModel();
-   AppPreferences _appPreferences=instance<AppPreferences>();
- 
+  AppPreferences _appPreferences = instance<AppPreferences>();
+
   _bind() {
     _appPreferences.setOnbordingIsViewed();
     _viewModel.start();
@@ -89,7 +89,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                     Navigator.pushReplacementNamed(context, Routes.loginRoute);
                   },
                   child: Text(
-                    AppStrings.skip,
+                    AppStrings.skip.tr(),
                     style: Theme.of(context).textTheme.subtitle2,
                     textAlign: TextAlign.end,
                   ),
