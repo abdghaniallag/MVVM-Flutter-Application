@@ -73,3 +73,17 @@ class NotificationHandler {
   // APNS token is available, make FCM plugin API requests...
 // }
 }
+
+
+initNotifications() async {
+  await Firebase.initializeApp(
+      options: FirebaseOptions(
+          apiKey: 'AIzaSyDq2_deFDo0ahrgRF-CA2bQIPlo8vJN-9I',
+          appId: '1:134470058592:android:c514cc5f2b56bfd984f905',
+          messagingSenderId: '134470058592',
+          projectId: '134470058592'));
+
+  await NotificationHandler.instance.requestPermisiion();
+  await NotificationHandler.instance.onRefreshToken();
+  await NotificationHandler.instance.foregroundMessages();
+}
